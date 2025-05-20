@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour, IMovement
+public class BasicPlayerMovement : MonoBehaviour, IMovement
 {
     private Player player;
     private float speed = 8f;
@@ -16,9 +16,9 @@ public class PlayerMovement : MonoBehaviour, IMovement
     }
     private void FixedUpdate() {
         CheckJump();
-        CheckMovement(GetDirection());
+        PlayerMovement(GetDirection());
     }
-    private void CheckMovement(Vector2 pDirection) {
+    private void PlayerMovement(Vector2 pDirection) {
         if (pDirection == Vector2.zero) return;
         player.PerformMovement(pDirection, speed);
         Debug.Log(pDirection);
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour, IMovement
     private void CheckJump()
     {
         CastVerticalRay();
-        Debug.Log($"Ïs player currently grounded: {isGrounded}");
+        Debug.Log($"Is player currently grounded: {isGrounded}");
         
         if (GetJumpKey && isGrounded) {
             Jump();
@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour, IMovement
     public void Move(Vector2 pDirection, float pSpeed = 1f) {
         player.transform.Translate(pDirection * (pSpeed * Time.deltaTime));
         if ((int)pDirection.x != (int)playerDirection.x) {
-            playerDirection.x = pDirection.x;
+            player.SetPlayerDirection(pDirection);
         }
     }
     public void AddForce(Vector3 pDirection, float pForce, ForceMode2D pForceMode2D) {

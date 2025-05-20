@@ -25,10 +25,13 @@ public class Entity : MonoBehaviour
     public void PerformAddForce(Vector3 pDirection, float pForce, ForceMode2D pForceMode2D = ForceMode2D.Impulse) {
         movement?.AddForce(pDirection, pForce, pForceMode2D);
     }
-    public void PerformAttack(int pDamage) {
-        attack?.Attack(pDamage);
+    public void PerformAttack(Entity pReceiver, int pDamage) {
+        pReceiver.health?.TakeDamage(pDamage);
     }
     public void PerformHealth(int pHealth) {
         health?.TakeDamage(pHealth);
+    }
+    public void PerformDeath() {
+        health?.Die();
     }
 }
