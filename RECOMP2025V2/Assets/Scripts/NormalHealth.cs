@@ -13,16 +13,20 @@ public class NormalHealth : MonoBehaviour, IHealth
     private void Awake() {
         entity = GetComponent<Entity>();
     }
-    public void TakeDamage(int pDamage) {
+    public void TakeDamage(Entity pSender, int pDamage) {
         Health -= pDamage;
         Debug.Log($"{gameObject.name} took damage: {pDamage}, current health: {Health}!");
-        BaseEnemy derivedEnemy = GetComponent<BaseEnemy>();
-        
+        Entity entity = GetComponent<Entity>();
+        bool isBullet = pSender.GetComponent<Bullet>();
         // Give the enemy knockback
-        if (derivedEnemy)
-            derivedEnemy.RequestAddForce(-derivedEnemy.Direction, 5f);
+        // Also check if the Sender is a bullet. If true, don't give it knockback.
+        if (entity && !isBullet) {
+            if (entity.Direction == Vector2.zero)
+                entity.SetDirection(-pSender.Direction);
+            entity.RequestAddForce(-entity.Direction, 5f);
+        }
         
-        // Check if Entity has died.
+        // Check if Entity has zero or under zero health.
         if (Health <= 0) {
             entity.RequestDeath();
         }

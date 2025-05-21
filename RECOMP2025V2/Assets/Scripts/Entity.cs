@@ -33,12 +33,11 @@ public class Entity : MonoBehaviour
     public void RequestAddForce(Vector3 pDirection, float pForce, ForceMode2D pForceMode2D = ForceMode2D.Impulse) {
         movement?.AddForce(pDirection, pForce, pForceMode2D);
     }
-    public void RequestAttack(Entity pReceiver, int pDamage) {
-        attack?.Attack(pDamage);
-        pReceiver.health?.TakeDamage(pDamage);
+    public void RequestAttack(Entity pReceiver, Entity pSender, int pDamage) {
+        pReceiver.health?.TakeDamage(pSender, pDamage);
     }
     public void RequestHeal(int pHealth) {
-        health?.TakeDamage(pHealth);
+        //health?.TakeDamage(pHealth);
     }
     public void RequestDeath() {
         health?.Die();

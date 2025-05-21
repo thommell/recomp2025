@@ -16,12 +16,12 @@ public class BasicPlayerAttack : MonoBehaviour, IAttack
         entityInRange = GetEntityFromRayCast();
         if (entityInRange is null) return;
         if (GetAttackKey() && entityInRange) {
-            player.RequestAttack(entityInRange, Damage);
+            player.RequestAttack(entityInRange, player, Damage);
         }
     }
     public void Attack(int pDamage) {
+        Debug.Log("Player Attack");
     }
-
     private Entity GetEntityFromRayCast() {
         Vector2 rayCastPosition = new Vector2(transform.position.x + 0.7f * player.Direction.x, transform.position.y);
         RaycastHit2D hit = Physics2D.Raycast(rayCastPosition, player.Direction.normalized, attackRange);
