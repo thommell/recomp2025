@@ -5,6 +5,7 @@ public class BasicPlayerMovement : MonoBehaviour, IMovement
 {
     private Player player;
     private float speed = 8f;
+    private float jumpForce = 4.5f;
     private Vector2 playerDirection;
     private bool isGrounded;
     
@@ -42,7 +43,7 @@ public class BasicPlayerMovement : MonoBehaviour, IMovement
         player.RigidBody.AddForce(pDirection * pForce, pForceMode2D);
     }
     private void Jump() {
-        player.PerformAddForce(Vector3.up, 2f);
+        player.PerformAddForce(Vector3.up, jumpForce);
     }
     private void CastVerticalRay()
     {
