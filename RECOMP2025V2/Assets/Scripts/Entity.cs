@@ -23,10 +23,9 @@ public class Entity : MonoBehaviour
     }
     // Request API
     public void RequestMovement(Vector2 pDirection, float pSpeed = 1f) {
-        // Check if there's a new Entity direction.
+        // Check if Entity gets a new direction.
         if (pDirection != direction) {
             direction = SetDirection(pDirection.x, pDirection.y);
-            Debug.Log($"New Direction: {direction} for: {gameObject.name}");
         }
         
         movement?.Move(pDirection, pSpeed);
@@ -50,7 +49,11 @@ public class Entity : MonoBehaviour
     /// <param name="pX">Horizontal direction.</param>
     /// <param name="pY">Vertical direction.</param>
     /// <returns></returns>
-    private Vector2 SetDirection(float pX = 0f, float pY = 0f) {
+    public Vector2 SetDirection(float pX = 0f, float pY = 0f) {
         return new Vector2(pX, pY);
+    }
+
+    public void SetDirection(Vector2 pDirection) {
+        direction = pDirection;
     }
 }

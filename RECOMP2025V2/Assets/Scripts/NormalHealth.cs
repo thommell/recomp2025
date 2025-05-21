@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BasicPlayerHealth : MonoBehaviour, IHealth
+public class NormalHealth : MonoBehaviour, IHealth
 {
     // Variables
     private Entity entity;
@@ -17,8 +17,10 @@ public class BasicPlayerHealth : MonoBehaviour, IHealth
         Debug.Log($"{gameObject.name} took damage: {pDamage}, current health: {Health}!");
         //TODO: Fix incoming entity call, enemy is always null for some reason (Knockback).
         BaseEnemy derivedEnemy = GetComponent<BaseEnemy>();
+        
+        // Give the enemy knockback
         if (derivedEnemy)
-            derivedEnemy.TakeKnockback(-derivedEnemy.Direction, 5f, ForceMode2D.Impulse);
+            derivedEnemy.RequestAddForce(-derivedEnemy.Direction, 5f);
         
         // Check if Entity has died.
         if (Health <= 0) {

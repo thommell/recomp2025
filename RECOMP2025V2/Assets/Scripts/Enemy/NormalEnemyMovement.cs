@@ -28,11 +28,10 @@ public class NormalEnemyMovement : MonoBehaviour, IMovement {
         Vector2 directionToPlayer = (player.transform.position - transform.position).normalized;
         enemy.RequestMovement(new Vector2(directionToPlayer.x, 0f),moveSpeed * Time.deltaTime);
     }
-
-   
     public void Move(Vector2 pDirection, float pSpeed = 1) {
         transform.Translate(pDirection * pSpeed);
     }
     public void AddForce(Vector3 pDirection, float pForce, ForceMode2D pForceMode2D) {
+        enemy.TakeKnockback(pDirection, pForce, pForceMode2D);
     }
 }
