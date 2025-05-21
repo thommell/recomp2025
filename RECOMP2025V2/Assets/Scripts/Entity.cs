@@ -7,9 +7,12 @@ public class Entity : MonoBehaviour
     private IHealth health;
     private Rigidbody2D rigidbody;
     private CircleCollider2D hitbox;
+
+    protected Vector2 direction = Vector2.zero;
     
     // Properties
     public Rigidbody2D RigidBody { get => rigidbody; set => rigidbody = value; }
+    public Vector2 Direction { get => direction; }
     //Initialize
     public virtual void Awake() {
         attack = GetComponentInChildren<IAttack>();
@@ -19,19 +22,35 @@ public class Entity : MonoBehaviour
         hitbox = GetComponent<CircleCollider2D>();
     }
     // Request API
-    public void PerformMovement(Vector2 pDirection, float pSpeed = 1f) {
+    public void RequestMovement(Vector2 pDirection, float pSpeed = 1f) {
+        // Check if there's a new Entity direction.
+        if (pDirection != direction) {
+            direction = SetDirection(pDirection.x, pDirection.y);
+            Debug.Log($"New Direction: {direction} for: {gameObject.name}");
+        }
+        
         movement?.Move(pDirection, pSpeed);
     }
-    public void PerformAddForce(Vector3 pDirection, float pForce, ForceMode2D pForceMode2D = ForceMode2D.Impulse) {
+    public void RequestAddForce(Vector3 pDirection, float pForce, ForceMode2D pForceMode2D = ForceMode2D.Impulse) {
         movement?.AddForce(pDirection, pForce, pForceMode2D);
     }
-    public void PerformAttack(Entity pReceiver, int pDamage) {
+    public void RequestAttack(Entity pReceiver, int pDamage) {
         pReceiver.health?.TakeDamage(pDamage);
     }
-    public void PerformHealth(int pHealth) {
+    public void RequestHeal(int pHealth) {
         health?.TakeDamage(pHealth);
     }
-    public void PerformDeath() {
+    public void RequestDeath() {
         health?.Die();
+    }
+
+    /// <summary>
+    /// Set the Entity's direction.
+    /// </summary>
+    /// <param name="pX">Horizontal direction.</param>
+    /// <param name="pY">Vertical direction.</param>
+    /// <returns></returns>
+    private Vector2 SetDirection(float pX = 0f, float pY = 0f) {
+        return new Vector2(pX, pY);
     }
 }

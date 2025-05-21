@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
-using Enemy;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class NormalEnemyMovement : MonoBehaviour, IMovement {
     [SerializeField] private BaseEnemy enemy;
+    [SerializeField] private float knockbackForce;
     private Player player;
     private float moveSpeed = 1f;
     
@@ -14,6 +10,8 @@ public class NormalEnemyMovement : MonoBehaviour, IMovement {
     private bool isWaiting;
     private float amountToWait = 1.5f;
     private float deltaTime;
+    
+    private Vector2 enemyDirection;
 
     private void Awake() {
         enemy = GetComponent<BaseEnemy>();
@@ -28,8 +26,10 @@ public class NormalEnemyMovement : MonoBehaviour, IMovement {
     }
     private void WalkTowards() {
         Vector2 directionToPlayer = (player.transform.position - transform.position).normalized;
-        enemy.PerformMovement(directionToPlayer,moveSpeed * Time.deltaTime);
+        enemy.RequestMovement(new Vector2(directionToPlayer.x, 0f),moveSpeed * Time.deltaTime);
     }
+
+   
     public void Move(Vector2 pDirection, float pSpeed = 1) {
         transform.Translate(pDirection * pSpeed);
     }
