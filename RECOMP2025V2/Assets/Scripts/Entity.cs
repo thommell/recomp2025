@@ -34,6 +34,7 @@ public class Entity : MonoBehaviour
         movement?.AddForce(pDirection, pForce, pForceMode2D);
     }
     public void RequestAttack(Entity pReceiver, int pDamage) {
+        attack?.Attack(pDamage);
         pReceiver.health?.TakeDamage(pDamage);
     }
     public void RequestHeal(int pHealth) {

@@ -4,9 +4,10 @@ public class NormalHealth : MonoBehaviour, IHealth
 {
     // Variables
     private Entity entity;
+    [SerializeField] private int health;
     
     // Properties
-    public int Health { get; set; } = 10;
+    public int Health { get => health; set => health = value; }
     
     // Methods
     private void Awake() {
@@ -15,7 +16,6 @@ public class NormalHealth : MonoBehaviour, IHealth
     public void TakeDamage(int pDamage) {
         Health -= pDamage;
         Debug.Log($"{gameObject.name} took damage: {pDamage}, current health: {Health}!");
-        //TODO: Fix incoming entity call, enemy is always null for some reason (Knockback).
         BaseEnemy derivedEnemy = GetComponent<BaseEnemy>();
         
         // Give the enemy knockback

@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
-public class NormalEnemyMovement : MonoBehaviour, IMovement {
+public class NormalAIMovement : MonoBehaviour, IMovement {
     [SerializeField] private BaseEnemy enemy;
-    [SerializeField] private float knockbackForce;
     private Player player;
     private float moveSpeed = 1f;
     
