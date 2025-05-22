@@ -13,6 +13,7 @@ public class RangedAttack : MonoBehaviour, IAttack {
     private void Awake() {
         shooter = GetComponent<Entity>();
         player = FindObjectOfType<Player>();
+        bulletScript = GetComponent<IBullet>();
         originalTime = deltaTime;
     }
     private void Update() {
