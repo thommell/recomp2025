@@ -26,7 +26,6 @@ public class BasicPlayerMovement : MonoBehaviour, IMovement
     private void CheckJump()
     {
         CastVerticalRay();
-        //Debug.Log($"Is player currently grounded: {isGrounded}");
         
         if (GetJumpKey && isGrounded) {
             Jump();
@@ -34,11 +33,6 @@ public class BasicPlayerMovement : MonoBehaviour, IMovement
     }
     public void Move(Vector2 pDirection, float pSpeed = 1f) {
         player.transform.Translate(pDirection * (pSpeed * Time.deltaTime));
-        
-        // Check if current direction of player is the same as the new direction.
-        if ((int)pDirection.x != (int)playerDirection.x) {
-          //  player.SetPlayerDirection(pDirection);
-        }
     }
     public void AddForce(Vector3 pDirection, float pForce, ForceMode2D pForceMode2D) {
         player.RigidBody.AddForce(pDirection * pForce, pForceMode2D);
