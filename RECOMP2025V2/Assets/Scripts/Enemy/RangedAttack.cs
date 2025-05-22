@@ -4,9 +4,8 @@ using UnityEngine;
 public class RangedAttack : MonoBehaviour, IAttack {
     private BaseEnemy enemy;
     private Player player;
+    private IBullet bulletScript;
     [SerializeField] GameObject bulletPrefab;
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private int bulletDamage;
     [SerializeField] private float deltaTime;
     private Vector2 directionToPlayer;
     private float originalTime;
@@ -14,6 +13,7 @@ public class RangedAttack : MonoBehaviour, IAttack {
     private void Awake() {
         enemy = GetComponent<BaseEnemy>();
         player = FindObjectOfType<Player>();
+        bulletScript = GetComponent<IBullet>();
         originalTime = deltaTime;
     }
     private void Update() {
@@ -32,15 +32,9 @@ public class RangedAttack : MonoBehaviour, IAttack {
         Debug.Log($"{gameObject.name} has shot a ranged attack!");
         TargetOnPlayer();
         Vector2 bulletSpawnPosition = new Vector2(enemy.transform.position.x + directionToPlayer.x, enemy.transform.position.y + directionToPlayer.y);
-        GameObject tempbullet = Instantiate(bulletPrefab, bulletSpawnPosition, Quaternion.identity);
-        Bullet bullet = tempbullet.GetComponent<Bullet>();
-        AssignBullet(bullet);
-    }
-
-    private void AssignBullet(Bullet pBullet) {
-        pBullet.SetDirection(directionToPlayer);
-        pBullet.AssignDamage(Damage);
-        pBullet.AssignSpeed(bulletSpeed);
-        pBullet.AssignOwner(enemy);
+        GameObject newBullet = Instantiate(bulletPrefab, bulletSpawnPosition, Quaternion.identity);
+        IBullet newBulletScript = newBullet.GetComponent<IBullet>();
+        newBulletScript.
+        //newBullet.AddComponent(bulletScript);
     }
 }

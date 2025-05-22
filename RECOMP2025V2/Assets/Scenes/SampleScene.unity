@@ -457,8 +457,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 0}
-  bulletSpeed: 2
-  bulletDamage: 2
   deltaTime: 1.25
 --- !u!212 &308261609
 SpriteRenderer:
@@ -643,11 +641,12 @@ GameObject:
   - component: {fileID: 1066214752}
   - component: {fileID: 1066214751}
   - component: {fileID: 1066214750}
+  - component: {fileID: 1066214758}
   - component: {fileID: 1066214749}
-  - component: {fileID: 1066214755}
   - component: {fileID: 1066214756}
   - component: {fileID: 1066214754}
   - component: {fileID: 1066214753}
+  - component: {fileID: 1066214757}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Untagged
@@ -680,9 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6267858227459146246, guid: 9dc7be3c5317dac459c4fba732d86c94, type: 3}
-  bulletSpeed: 4
-  bulletDamage: 2
-  deltaTime: 4
+  deltaTime: 2
 --- !u!212 &1066214751
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -822,20 +819,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1066214755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1066214747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 068c2f9862cc4e70b7a50d00d685dd40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dashSpeed: 3
-  deltaTime: 2
 --- !u!114 &1066214756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -849,6 +832,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+--- !u!114 &1066214757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066214747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7812fa968a4c4f7a8651991206d1e2c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shooter: {fileID: 0}
+--- !u!114 &1066214758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066214747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7812fa968a4c4f7a8651991206d1e2c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shooter: {fileID: 0}
 --- !u!1 &1605300672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2040605805
 MonoBehaviour:
   m_ObjectHideFlags: 0

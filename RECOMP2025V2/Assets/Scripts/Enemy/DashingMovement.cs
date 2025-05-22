@@ -16,13 +16,10 @@ public class DashingMovement : MonoBehaviour, IMovement {
 
     private void Update() {
         deltaTime -= Time.deltaTime;
-        
         if (deltaTime <= 0f) {
             Dash();
             deltaTime = originalTime;
         }
-
-        //Debug.Log($"Current time: {deltaTime}");
     }
 
     private void Dash() {
