@@ -5,12 +5,15 @@ public class HomingMovement : MonoBehaviour, IBullet{
     public float BulletSpeed { get; }
     public int BulletDamage { get; }
     public bool IsFired { get; set; }
-
-    public void BulletMovement(Vector2 pDirecton) {
+    public void BulletMovement(Bullet pBullet, Vector2 pDirection) {
         throw new System.NotImplementedException();
     }
 
-    public void BulletHit() {
+    public void BulletHit(Bullet pBullet) {
+        throw new System.NotImplementedException();
+    }
+
+    public void SetShooter(Entity pShooter) {
         throw new System.NotImplementedException();
     }
 }

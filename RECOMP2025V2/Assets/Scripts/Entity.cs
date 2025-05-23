@@ -42,7 +42,6 @@ public class Entity : MonoBehaviour
     public void RequestDeath() {
         health?.Die();
     }
-
     /// <summary>
     /// Set the Entity's direction.
     /// </summary>
@@ -52,7 +51,6 @@ public class Entity : MonoBehaviour
     public Vector2 SetDirection(float pX = 0f, float pY = 0f) {
         return new Vector2(pX, pY);
     }
-
     public void SetDirection(Vector2 pDirection) {
         direction = pDirection;
     }

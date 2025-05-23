@@ -25,7 +25,7 @@ public class DashingMovement : MonoBehaviour, IMovement {
     private void Dash() {
         Vector2 playerDirection = player.transform.position - transform.position;
         enemy.SetDirection(playerDirection.normalized);
-        enemy.RequestAddForce(playerDirection.normalized, dashSpeed);
+        enemy.RequestAddForce(enemy.Direction, dashSpeed);
     }
 
     public void Move(Vector2 pDirection, float pSpeed = 1) {

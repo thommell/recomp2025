@@ -16,10 +16,10 @@ public class BasicHealth : MonoBehaviour, IHealth
     public void TakeDamage(Entity pSender, int pDamage) {
         Health -= pDamage;
         Debug.Log($"{gameObject.name} took damage: {pDamage}, current health: {Health}!");
-        bool isBullet = pSender.GetComponent<Bullet>();
+        //bool isBullet = pSender.GetComponent<Bullet>();
         // Give the enemy knockback
         // Also check if the Sender is a bullet. If true, don't give it knockback.
-        if (entity && !isBullet) {
+        if (entity) {
             entity.RequestAddForce(-entity.Direction, 5f);
         }
         
