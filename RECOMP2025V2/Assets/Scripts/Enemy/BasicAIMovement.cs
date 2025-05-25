@@ -5,7 +5,6 @@ public class BasicAIMovement : MonoBehaviour, IMovement {
     private Player player;
     private float moveSpeed = 1f;
     
-    //TODO: Timer
     private bool isWaiting;
     private float amountToWait = 1.5f;
     private float deltaTime;
@@ -31,6 +30,7 @@ public class BasicAIMovement : MonoBehaviour, IMovement {
         transform.Translate(pDirection * pSpeed);
     }
     public void AddForce(Vector3 pDirection, float pForce, ForceMode2D pForceMode2D) {
-        enemy.TakeKnockback(pDirection, pForce, pForceMode2D);
+       enemy.RigidBody.AddForce(pDirection * pForce, pForceMode2D);
+       enemy.TakeKnockback(pDirection, pForce, pForceMode2D);
     }
 }

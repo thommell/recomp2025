@@ -1,11 +1,9 @@
-using BulletManager;
 using UnityEngine;
 
 public interface IBullet {
-    public Bullet Bullet { get; set; }
-    public float BulletSpeed { get; set; }
-    public int BulletDamage { get; set; }
+    public float BulletSpeed { get; }
+    public int BulletDamage { get; }
     public bool IsFired { get; set; }
-    void BulletMovement(Vector2 pDirection);
-    void BulletHit();
+    void BulletMovement(Bullet pBullet, Vector2 pDirection);
+    void BulletHit(Bullet pBullet);
 }

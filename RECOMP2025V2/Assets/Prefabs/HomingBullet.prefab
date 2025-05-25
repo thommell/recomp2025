@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2550754467617986996}
   - component: {fileID: 7827883864277496675}
   - component: {fileID: 3986732264199284626}
-  - component: {fileID: 3886559836690325390}
+  - component: {fileID: 1566650491978653435}
   m_Layer: 0
-  m_Name: NormalBullet
+  m_Name: HomingBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580c5f586c3947378d9750d7ade2c95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3886559836690325390
+--- !u!114 &1566650491978653435
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,6 +153,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6267858227459146246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53591a640dbabc84ab8fd7cbe09ed466, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bd233afc3860d1419fd0ade92b17dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

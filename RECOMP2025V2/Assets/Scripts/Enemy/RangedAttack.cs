@@ -1,10 +1,6 @@
 using System;
-using BulletManager;
-using Unity.VisualScripting;
 using UnityEngine;
-
 public class RangedAttack : MonoBehaviour, IAttack {
-    [SerializeField] private float originalTime;
     [SerializeField] private GameObject bulletPrefab;
 
     [SerializeField] private float bulletSpeed;
@@ -12,19 +8,21 @@ public class RangedAttack : MonoBehaviour, IAttack {
 
     private Player player;
     private Entity shooter;
-    private float deltaTime;
-
-    private Vector2 playerDir;
-    
-    public int Damage { get; set; } 
-    private void Start() {
-        player = FindObjectOfType<Player>();
+    private int bulletAmount;
+    private Type selectedBulletType;
+    [SerializeField] private float deltaTime;
+    private Vector2 cachedPlayerDirection;
+    private float originalTime;
+    public int Damage { get; set; } = 2;
+    private void Awake() {
         shooter = GetComponent<Entity>();
-        deltaTime = originalTime;
+        player = FindObjectOfType<Player>();
+        originalTime = deltaTime;
     }
     public void Attack(int pDamage) {
     }
     private void Update() {
+        if (!player) return;
         Timer();
     }
     private void Timer() {
@@ -34,23 +32,42 @@ public class RangedAttack : MonoBehaviour, IAttack {
         }
         deltaTime -= Time.deltaTime;
     }
+    private void TargetOnPlayer() => cachedPlayerDirection = (player.transform.position - shooter.transform.position).normalized;
  
     private void Shoot() {
-       
-        //Bullet bulletObj = Instantiate(bulletPrefab, new Vector2(transform.position.x + playerDir.x, transform.position.y + playerDir.y), Quaternion.identity).GetComponent<Bullet>(); 
-        //bulletObj.TargetOnPlayer(playerDir);
-        //bulletObj.InitializeBullet(bulletObj);
-        
         Debug.Log($"{gameObject.name} has shot a ranged attack!");
-        playerDir = (player.transform.position - shooter.transform.position).normalized; 
-        Vector2 bulletSpawnPosition = new Vector2(shooter.transform.position.x + playerDir.x, shooter.transform.position.y + playerDir.y);
-        GameObject tempbullet = Instantiate(bulletPrefab, bulletSpawnPosition, Quaternion.identity);
-        Bullet bullet = tempbullet.GetComponent<Bullet>();
-        bullet.TargetOnPlayer(playerDir);
-        bullet.CachedBulletSpeed = bulletSpeed;
-        bullet.CachedBulletDamage = bulletDamage;
+        TargetOnPlayer();
+        Vector2 bulletSpawnPosition = new Vector2(shooter.transform.position.x + cachedPlayerDirection.x, shooter.transform.position.y + cachedPlayerDirection.y);
+        GameObject newBullet = Instantiate(bulletPrefab, bulletSpawnPosition, Quaternion.identity);
+        // Find the bullet of the new instantiated bullet
+        Bullet newBulletObj = newBullet.GetComponent<Bullet>();
+        // Find IBullet variation from the new instantiated bullet
+        IBullet newBulletScript = newBulletObj.GetComponent<IBullet>();
+        GetBulletType(newBulletObj);
+        SetBulletValues(newBulletObj, newBulletScript);
+    }
+
+    private void SetBulletValues(Bullet pBullet, IBullet pScript) {
+        pBullet.gameObject.AddComponent(selectedBulletType);
+        pBullet.SetDirection(cachedPlayerDirection);
+        pBullet.AssignObject(pScript, pBullet);
+        pBullet.BulletScript.IsFired = true;
+    }
+    private void GetBulletType(Bullet pBullet) {
         
-       // bullet.SetBulletSpeed(bulletSpeed);
-       // bullet.SetDirection(directionToPlayer);
+        switch (pBullet.GetComponent<IBullet>()) {
+            case BasicBullet:
+                SetBulletType<BasicBullet>();
+                break;
+            case HomingMovement:
+                SetBulletType<HomingMovement>();
+                break;
+            default:
+                Debug.Log("What the hell, what the helly?");
+                break;
+        }
+    }
+    private void SetBulletType<T>() where T : MonoBehaviour, IBullet {
+        selectedBulletType = typeof(T);
     }
 }
