@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class DashingMovement : MonoBehaviour, IMovement {
+public class DashingMovement : MonoBehaviour, IKnockable {
     private BaseEnemy enemy;
     private Player player;
     private Vector2 dashDirection;
@@ -25,13 +25,10 @@ public class DashingMovement : MonoBehaviour, IMovement {
     private void Dash() {
         Vector2 playerDirection = player.transform.position - transform.position;
         enemy.SetDirection(playerDirection.normalized);
-        enemy.RequestAddForce(enemy.Direction, dashSpeed);
+        enemy.RequestKnockBack(this, enemy, enemy.Direction, dashSpeed);
     }
 
-    public void Move(Vector2 pDirection, float pSpeed = 1) {
-        throw new NotImplementedException();
-    }
-    public void AddForce(Vector3 pDirection, float pForce, ForceMode2D pForceMode2D) {
-        enemy.RigidBody.AddForce(pDirection * pForce, pForceMode2D);
+    public void KnockBack(Vector2 pDirection, float pForce, ForceMode2D pForceMode = ForceMode2D.Impulse) {
+        enemy.RigidBody.AddForce(pDirection * pForce, pForceMode);
     }
 }

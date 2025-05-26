@@ -17,6 +17,7 @@ public class BasicPlayerAttack : MonoBehaviour, IAttack
         if (entityInRange is null) return;
         if (GetAttackKey() && entityInRange) {
             player.RequestAttack(entityInRange, player, Damage);
+            entityInRange.GetComponent<BasicPushback>().PushBack(player.Direction, 5f);
         }
     }
     public void Attack(int pDamage) {

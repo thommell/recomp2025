@@ -2,11 +2,11 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     // Variables
-    private IAttack attack;
+    private IAttack[] attack;
     private IMovement movement;
+    private IKnockable[] knockable;
     private IHealth health;
     private Rigidbody2D rigidbody;
-    private CircleCollider2D hitbox;
 
     protected Vector2 direction = Vector2.zero;
     
@@ -15,11 +15,11 @@ public class Entity : MonoBehaviour
     public Vector2 Direction { get => direction; }
     //Initialize
     public virtual void Awake() {
-        attack = GetComponentInChildren<IAttack>();
+        attack = GetComponentsInChildren<IAttack>();
         movement = GetComponentInChildren<IMovement>();
+        knockable = GetComponentsInChildren<IKnockable>();
         health = GetComponentInChildren<IHealth>();
         rigidbody = GetComponent<Rigidbody2D>();
-        hitbox = GetComponent<CircleCollider2D>();
     }
     // Request API
     public void RequestMovement(Vector2 pDirection, float pSpeed = 1f) {
@@ -30,8 +30,17 @@ public class Entity : MonoBehaviour
         
         movement?.Move(pDirection, pSpeed);
     }
-    public void RequestAddForce(Vector3 pDirection, float pForce, ForceMode2D pForceMode2D = ForceMode2D.Impulse) {
-        movement?.AddForce(pDirection, pForce, pForceMode2D);
+    public void RequestKnockBack(IKnockable pKnockable, Entity pSender, Vector3 pDirection, float pForce, ForceMode2D pForceMode2D = ForceMode2D.Impulse) {
+        // Give the enemy knock back
+        // Also check if the Sender is a bullet. If true, give it the bullet's knockback
+        Entity reciever = GetComponent<Entity>();
+        bool isBullet = pSender.GetComponent<Bullet>();
+        if (isBullet || pSender.Direction == Vector2.zero) {
+            pKnockable.KnockBack(pSender.Direction, 3f);
+            return;
+        } 
+        //pKnockable.KnockBack(-pSender.Direction, 3f);
+        pKnockable.KnockBack(pDirection, pForce, pForceMode2D);
     }
     public void RequestAttack(Entity pReceiver, Entity pSender, int pDamage) {
         pReceiver.health?.TakeDamage(pSender, pDamage);

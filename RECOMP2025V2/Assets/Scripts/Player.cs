@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
 
-public class Player : Entity
-{
+public class Player : Entity {
 }

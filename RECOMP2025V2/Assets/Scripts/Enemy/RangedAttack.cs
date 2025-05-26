@@ -17,6 +17,7 @@ public class RangedAttack : MonoBehaviour, IAttack {
     private void Awake() {
         shooter = GetComponent<Entity>();
         player = FindObjectOfType<Player>();
+        
         originalTime = deltaTime;
     }
     public void Attack(int pDamage) {
@@ -47,8 +48,8 @@ public class RangedAttack : MonoBehaviour, IAttack {
         SetBulletValues(newBulletObj, newBulletScript);
     }
 
-    private void SetBulletValues(Bullet pBullet, IBullet pScript) {
-        pBullet.gameObject.AddComponent(selectedBulletType);
+    private void SetBulletValues(Bullet pBullet, IBullet pScript) { 
+        //pBullet.gameObject.AddComponent(selectedBulletType);
         pBullet.SetDirection(cachedPlayerDirection);
         pBullet.AssignObject(pScript, pBullet);
         pBullet.BulletScript.IsFired = true;

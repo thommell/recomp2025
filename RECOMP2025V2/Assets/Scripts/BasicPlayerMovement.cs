@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class BasicPlayerMovement : MonoBehaviour, IMovement
+public class BasicPlayerMovement : MonoBehaviour, IMovement, IKnockable
 {
     private Player player;
     private float speed = 8f;
@@ -34,11 +34,8 @@ public class BasicPlayerMovement : MonoBehaviour, IMovement
     public void Move(Vector2 pDirection, float pSpeed = 1f) {
         player.transform.Translate(pDirection * (pSpeed * Time.deltaTime));
     }
-    public void AddForce(Vector3 pDirection, float pForce, ForceMode2D pForceMode2D) {
-        player.RigidBody.AddForce(pDirection * pForce, pForceMode2D);
-    }
-    private void Jump() {
-        player.RequestAddForce(Vector3.up, jumpForce);
+    private void Jump() { 
+        player.RequestKnockBack(this, player, Vector3.up, jumpForce);
     }
     private void CastVerticalRay()
     {
@@ -64,5 +61,9 @@ public class BasicPlayerMovement : MonoBehaviour, IMovement
     {
         // Set grounded to false when it stops colliding.
         isGrounded = false;
+    }
+
+    public void KnockBack(Vector2 pDirection, float pForce, ForceMode2D forceMode = ForceMode2D.Impulse) {
+        player.RigidBody.AddForce(pDirection * pForce, forceMode);
     }
 }

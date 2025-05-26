@@ -14,14 +14,15 @@ public class BasicHealth : MonoBehaviour, IHealth
         entity = GetComponent<Entity>();
     }
     public void TakeDamage(Entity pSender, int pDamage) {
+        // Cancel damage call if entity doesn't exist
+        if (!entity) return;
         Health -= pDamage;
+        
+        bool isBullet = pSender.GetComponent<Bullet>();
         Debug.Log($"{gameObject.name} took damage: {pDamage}, current health: {Health}!");
         // Give the enemy knockback
-        // Also check if the Sender is a bullet. If true, don't give it knockback.
-        if (entity) {
-            entity.RequestAddForce(-entity.Direction, 5f);
-        }
-        
+        // Also check if the Sender is a bullet. If true, give it the bullet's knockback
+       
         // Check if Entity has zero or under zero health.
         if (Health <= 0) {
             entity.RequestDeath();
