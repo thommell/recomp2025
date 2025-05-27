@@ -3,8 +3,6 @@ public class Entity : MonoBehaviour
 {
     // Variables
     private IAttack[] attack;
-    private IMovement movement;
-    private IKnockable[] knockable;
     private IHealth health;
     public Vector2 CachedLastInput { get; set; }
     private Rigidbody2D rigidbody;
@@ -17,13 +15,11 @@ public class Entity : MonoBehaviour
     //Initialize
     public virtual void Awake() {
         attack = GetComponentsInChildren<IAttack>();
-        movement = GetComponentInChildren<IMovement>();
-        knockable = GetComponentsInChildren<IKnockable>();
         health = GetComponentInChildren<IHealth>();
         rigidbody = GetComponent<Rigidbody2D>();
     }
     // Request API
-    public void RequestMovement(Vector2 pDirection, float pSpeed = 1f) {
+    public void RequestMovement(IMovement movement, Vector2 pDirection, float pSpeed = 1f) {
         // Check if Entity gets a new direction.
         if (pDirection != direction) 
             direction = SetDirection(pDirection.x, pDirection.y);
@@ -41,10 +37,9 @@ public class Entity : MonoBehaviour
     /// <param name="pForce">The requested force.</param>
     /// <param name="pForceMode2D">The requested ForceMode.</param>
     public void RequestKnockBack(IKnockable pKnockable, Entity pSender, Vector3 pDirection, float pForce, ForceMode2D pForceMode2D = ForceMode2D.Impulse) {
+        // Helps prevent the accumulation of different forces
+        RigidBody.velocity = Vector2.zero;
         // Give the enemy knock back
-        // Also check if the Sender is a bullet. If true, give it the bullet's knockback
-        if (RigidBody.velocity != Vector2.zero) 
-            RigidBody.velocity = Vector2.zero;
         switch (pKnockable) {
             case BasicPushback: 
                 pKnockable.KnockBack(pSender.Direction, pForce, pForceMode2D);

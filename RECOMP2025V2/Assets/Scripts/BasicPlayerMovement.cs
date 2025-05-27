@@ -4,8 +4,8 @@ using UnityEngine;
 public class BasicPlayerMovement : MonoBehaviour, IMovement, IKnockable
 {
     private Player player;
-    private float speed = 8f;
-    private float jumpForce = 4.5f;
+    [SerializeField] private float speed;
+    [SerializeField] private float jumpForce;
     private Vector2 playerDirection;
     private bool isGrounded;
     
@@ -21,7 +21,7 @@ public class BasicPlayerMovement : MonoBehaviour, IMovement, IKnockable
     }
     private void PlayerMovement(Vector2 pDirection) {
         if (pDirection == Vector2.zero) return;
-        player.RequestMovement(pDirection, speed);
+        player.RequestMovement(this, pDirection, speed);
     }
     private void CheckJump()
     {
@@ -31,7 +31,7 @@ public class BasicPlayerMovement : MonoBehaviour, IMovement, IKnockable
             Jump();
         }
     }
-    public void Move(Vector2 pDirection, float pSpeed = 1f) {
+    public void Move(Vector3 pDirection, float pSpeed = 1f) {
         player.transform.Translate(pDirection * (pSpeed * Time.deltaTime));
     }
     private void Jump() { 
