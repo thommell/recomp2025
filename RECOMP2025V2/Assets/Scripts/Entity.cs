@@ -6,6 +6,7 @@ public class Entity : MonoBehaviour
     private IMovement movement;
     private IKnockable[] knockable;
     private IHealth health;
+    public Vector2 CachedLastInput { get; set; }
     private Rigidbody2D rigidbody;
 
     protected Vector2 direction = Vector2.zero;
@@ -24,23 +25,34 @@ public class Entity : MonoBehaviour
     // Request API
     public void RequestMovement(Vector2 pDirection, float pSpeed = 1f) {
         // Check if Entity gets a new direction.
-        if (pDirection != direction) {
+        if (pDirection != direction) 
             direction = SetDirection(pDirection.x, pDirection.y);
-        }
+        if (CachedLastInput != direction && direction != Vector2.zero) 
+            CachedLastInput = SetDirection(direction.x, direction.y);
         
         movement?.Move(pDirection, pSpeed);
     }
+    /// <summary>
+    /// Wrapper method for requesting a new knock-back for an <see cref="Entity"/>.
+    /// </summary>
+    /// <param name="pKnockable">The script sending the requested knock-back.</param>
+    /// <param name="pSender">The object sending the requested knock-back.</param>
+    /// <param name="pDirection">The requested direction.</param>
+    /// <param name="pForce">The requested force.</param>
+    /// <param name="pForceMode2D">The requested ForceMode.</param>
     public void RequestKnockBack(IKnockable pKnockable, Entity pSender, Vector3 pDirection, float pForce, ForceMode2D pForceMode2D = ForceMode2D.Impulse) {
         // Give the enemy knock back
         // Also check if the Sender is a bullet. If true, give it the bullet's knockback
-        Entity reciever = GetComponent<Entity>();
-        bool isBullet = pSender.GetComponent<Bullet>();
-        if (isBullet || pSender.Direction == Vector2.zero) {
-            pKnockable.KnockBack(pSender.Direction, 3f);
-            return;
-        } 
-        //pKnockable.KnockBack(-pSender.Direction, 3f);
-        pKnockable.KnockBack(pDirection, pForce, pForceMode2D);
+        if (RigidBody.velocity != Vector2.zero) 
+            RigidBody.velocity = Vector2.zero;
+        switch (pKnockable) {
+            case BasicPushback: 
+                pKnockable.KnockBack(pSender.Direction, pForce, pForceMode2D);
+                break;
+            default:
+                pKnockable.KnockBack(pDirection, pForce, pForceMode2D);
+                break;
+        }
     }
     public void RequestAttack(Entity pReceiver, Entity pSender, int pDamage) {
         pReceiver.health?.TakeDamage(pSender, pDamage);
@@ -57,7 +69,7 @@ public class Entity : MonoBehaviour
     /// <param name="pX">Horizontal direction.</param>
     /// <param name="pY">Vertical direction.</param>
     /// <returns></returns>
-    public Vector2 SetDirection(float pX = 0f, float pY = 0f) {
+    private Vector2 SetDirection(float pX = 0f, float pY = 0f) {
         return new Vector2(pX, pY);
     }
     public void SetDirection(Vector2 pDirection) {
