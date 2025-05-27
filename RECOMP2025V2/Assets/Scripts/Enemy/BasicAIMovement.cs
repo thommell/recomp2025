@@ -24,9 +24,9 @@ public class BasicAIMovement : MonoBehaviour, IMovement {
     }
     private void WalkTowards() {
         Vector2 directionToPlayer = (player.transform.position - transform.position).normalized;
-        enemy.RequestMovement(new Vector2(directionToPlayer.x, 0f),moveSpeed * Time.deltaTime);
+        enemy.RequestMovement(this, new Vector2(directionToPlayer.x, 0f),moveSpeed * Time.deltaTime);
     }
-    public void Move(Vector2 pDirection, float pSpeed = 1) {
+    public void Move(Vector3 pDirection, float pSpeed = 1) {
         transform.Translate(pDirection * pSpeed);
     }
 }

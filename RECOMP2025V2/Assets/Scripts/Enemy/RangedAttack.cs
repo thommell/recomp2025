@@ -14,14 +14,15 @@ public class RangedAttack : MonoBehaviour, IAttack {
     private Vector2 cachedPlayerDirection;
     private float originalTime;
     public int Damage { get; set; } = 2;
+    public void Attack(int pDamage) {
+    }
     private void Awake() {
         shooter = GetComponent<Entity>();
         player = FindObjectOfType<Player>();
         
         originalTime = deltaTime;
     }
-    public void Attack(int pDamage) {
-    }
+
     private void Update() {
         if (!player) return;
         Timer();

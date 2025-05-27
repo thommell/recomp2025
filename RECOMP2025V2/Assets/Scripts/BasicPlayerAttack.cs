@@ -21,7 +21,6 @@ public class BasicPlayerAttack : MonoBehaviour, IAttack
         }
     }
     public void Attack(int pDamage) {
-        Debug.Log("Player Attack");
     }
     private Entity GetEntityFromRayCast() {
         Vector2 rayCastPosition = new Vector2(transform.position.x + 0.7f * player.Direction.x, transform.position.y);
