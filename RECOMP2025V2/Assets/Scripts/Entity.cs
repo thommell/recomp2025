@@ -2,7 +2,6 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     // Variables
-    private IAttack[] attack;
     private IHealth health;
     private bool canMove = true;
     private Rigidbody2D rigidbody;
@@ -18,7 +17,6 @@ public class Entity : MonoBehaviour
     public Vector2 Direction { get => direction; }
     //Initialize
     public virtual void Awake() {
-        attack = GetComponentsInChildren<IAttack>();
         health = GetComponentInChildren<IHealth>();
         rigidbody = GetComponent<Rigidbody2D>();
     }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
 public interface IAttack {
-    public int Damage { get; set; }
+    public int BulletDamage { get; set; }
     public void Attack(int pDamage);
 }

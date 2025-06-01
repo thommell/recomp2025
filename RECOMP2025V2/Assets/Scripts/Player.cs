@@ -1,6 +1,4 @@
-﻿using System;
-using System.Timers;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : Entity {
     [SerializeField] private float deltaTime;

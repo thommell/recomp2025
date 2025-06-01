@@ -4,7 +4,7 @@ using UnityEngine;
 public class BasicAttack : MonoBehaviour, IAttack, IKnockable {
     private Entity entity;
     private Entity collidedEntity;
-    public int Damage { get; set; } = 2;
+    public int BulletDamage { get; set; } = 2;
     public void Attack(int pDamage) {
         throw new NotImplementedException();
     }
@@ -17,7 +17,7 @@ public class BasicAttack : MonoBehaviour, IAttack, IKnockable {
         // Return if collided object IS NOT an entity
         if (!collidedEntity) return;
         Debug.Log($"Entity collision: {collidedEntity}!");
-        entity.RequestAttack(collidedEntity, entity, Damage);
+        entity.RequestAttack(collidedEntity, entity, BulletDamage);
         entity.RequestKnockBack(this, collidedEntity, -collidedEntity.Direction, 5f);
     }
     public void KnockBack(Vector2 pDirection, float pForce, ForceMode2D forceMode = ForceMode2D.Impulse) {

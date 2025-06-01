@@ -3,22 +3,21 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Bullet : Entity {
-    // Methods
+    // Objects
+    protected RangedAttack shooter;
     private IBullet bulletScript;
-    private Bullet bulletObject;
     
-    public Bullet BulletObject => bulletObject;
     public IBullet BulletScript => bulletScript;
     private void Start() {
         StartCoroutine(BulletLifeTime());
     }
+
     public virtual void Update() {
-        if (bulletScript == null || !bulletObject) return;
-        if (!bulletScript.IsFired) return;
-        RequestBulletMovement(bulletObject.Direction);
+        if (bulletScript == null || !bulletScript.IsFired) return;
+        RequestBulletMovement(Direction);
     }
     private void RequestBulletMovement(Vector2 pDirection) {
-        bulletScript?.BulletMovement(bulletObject, pDirection);
+        bulletScript?.BulletMovement(this, pDirection);
     }
     private IEnumerator BulletLifeTime() {
         yield return new WaitForSeconds(5f);
@@ -26,23 +25,23 @@ public class Bullet : Entity {
     }
     private void OnTriggerEnter2D(Collider2D other) {
         Entity entity = other.GetComponent<Entity>();
-        if (!entity || entity.GetComponent<Bullet>()) return;
+        if (!entity || entity.GetComponent<Bullet>()) {
+            Destroy(gameObject);
+            return;
+        }
         
         // Short fix to prevent an IBullet
         // implementation calling RequestAttack
         // while they shouldn't be able to
-        if (bulletScript == null | !bulletObject) return;
+        if (bulletScript == null) return;
         
-        RequestAttack(entity, this, bulletScript.BulletDamage);
+        RequestAttack(entity, this, shooter.BulletDamage);
         bulletScript?.BulletHit(this);
     }
-    public void AssignObject(IBullet pBulletScript, Bullet pBulletObject) {
-        SetBulletObject(pBulletObject);
+    public void AssignObject(IBullet pBulletScript) {
         SetBulletScript(pBulletScript);
-        bulletObject.GetBulletObject();
     }
-    public Bullet GetBulletObject() => bulletObject;
     public IBullet GetBulletScript() => bulletScript;
     private void SetBulletScript(IBullet pScript) => bulletScript = pScript;
-    private void SetBulletObject(Bullet pObject) => bulletObject = pObject;
+    public void SetShooter(RangedAttack pShooter) => shooter = pShooter;
 }

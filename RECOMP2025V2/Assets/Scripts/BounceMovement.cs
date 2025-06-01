@@ -2,8 +2,6 @@ using System;
 using UnityEngine;
 
 public class BounceMovement : MonoBehaviour, IKnockable {
-    // Fields
-    
     // Serialized fields
     [SerializeField] private float deltaTime;
     [SerializeField] private float force;
@@ -15,12 +13,10 @@ public class BounceMovement : MonoBehaviour, IKnockable {
     
     // Objects
     private Entity bouncer;
-    private Player player;
     private BoxCollider2D collider; 
 
     private void Awake() {
         bouncer = GetComponent<Entity>();
-        player = FindObjectOfType<Player>();
         collider = GetComponent<BoxCollider2D>();
         originalTime = deltaTime;
     }
@@ -28,7 +24,6 @@ public class BounceMovement : MonoBehaviour, IKnockable {
         CastVerticalRay();
         Timer();
     }
-
     private void Timer() {
         if (deltaTime <= 0 && isGrounded) {
             deltaTime = originalTime;
@@ -37,14 +32,13 @@ public class BounceMovement : MonoBehaviour, IKnockable {
         deltaTime -= Time.deltaTime;
     }
     private void SendBounce() {
-        bouncer.RequestKnockBack(this, bouncer, GetPlayerPos(), force);   
+        bouncer.RequestKnockBack(this, bouncer, GetPlayerPos(), force);  
     }
     public void KnockBack(Vector2 pDirection, float pForce, ForceMode2D forceMode = ForceMode2D.Impulse) {
         // Player position caching
         bouncer.RigidBody.AddForce(new Vector2(pDirection.x, pForce) * pForce, forceMode);
     }
-    private Vector2 GetPlayerPos() => (player.transform.position - bouncer.transform.position).normalized;
-
+    private Vector2 GetPlayerPos() => (StaticManager.Instance.Player.transform.position - bouncer.transform.position).normalized;
     private void OnCollisionExit2D(Collision2D other) {
         if (other.gameObject.GetComponent<BoxCollider2D>().IsTouchingLayers()) {
             Debug.Log($"{gameObject.name} has bounced!");
