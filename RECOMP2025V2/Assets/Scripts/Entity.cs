@@ -22,6 +22,8 @@ public class Entity : MonoBehaviour
     }
     // Request API
     public void RequestMovement(IMovement movement, Vector2 pDirection, float pSpeed = 1f) {
+        // Check if Entity is allowed to move.
+        if (!canMove) return;
         // Check if Entity gets a new direction.
         if (pDirection != direction) 
             direction = SetDirection(pDirection.x, pDirection.y);

@@ -8,15 +8,16 @@ public class Bullet : Entity {
     private IBullet bulletScript;
     
     public IBullet BulletScript => bulletScript;
-    private void Start() {
+    public virtual void Start() {
         StartCoroutine(BulletLifeTime());
     }
 
     public virtual void Update() {
+        // Cancel movement call if there's no bullet script or if the bullet hasn't been fired.
         if (bulletScript == null || !bulletScript.IsFired) return;
         RequestBulletMovement(Direction);
     }
-    private void RequestBulletMovement(Vector2 pDirection) {
+    protected void RequestBulletMovement(Vector2 pDirection) {
         bulletScript?.BulletMovement(this, pDirection);
     }
     private IEnumerator BulletLifeTime() {
@@ -24,9 +25,10 @@ public class Bullet : Entity {
         Destroy(gameObject);
     }
     private void OnTriggerEnter2D(Collider2D other) {
+        IHealth health = other.GetComponent<IHealth>();
         Entity entity = other.GetComponent<Entity>();
-        if (!entity || entity.GetComponent<Bullet>()) {
-            Destroy(gameObject);
+        if (health != null){
+            bulletScript.BulletHit(this);
             return;
         }
         
@@ -41,7 +43,6 @@ public class Bullet : Entity {
     public void AssignObject(IBullet pBulletScript) {
         SetBulletScript(pBulletScript);
     }
-    public IBullet GetBulletScript() => bulletScript;
     private void SetBulletScript(IBullet pScript) => bulletScript = pScript;
     public void SetShooter(RangedAttack pShooter) => shooter = pShooter;
 }

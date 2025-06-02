@@ -45,7 +45,6 @@ public class RangedAttack : MonoBehaviour, IAttack {
         newBulletObj.SetShooter(this);
         // Find IBullet variation from the new instantiated bullet
         IBullet newBulletScript = newBulletObj.GetComponent<IBullet>();
-        //GetBulletType(newBulletObj);
         SetBulletValues(newBulletObj, newBulletScript);
     }
 
