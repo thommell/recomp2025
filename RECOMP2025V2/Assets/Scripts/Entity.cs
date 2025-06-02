@@ -2,19 +2,21 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     // Variables
-    private IAttack[] attack;
     private IHealth health;
-    public Vector2 CachedLastInput { get; set; }
+    private bool canMove = true;
     private Rigidbody2D rigidbody;
+    private float timeTillMove;
 
     protected Vector2 direction = Vector2.zero;
     
+    
     // Properties
+    private Vector2 CachedLastInput { get; set; }
+    public bool CanMove {get => canMove; private set => canMove = value; }
     public Rigidbody2D RigidBody { get => rigidbody; set => rigidbody = value; }
     public Vector2 Direction { get => direction; }
     //Initialize
     public virtual void Awake() {
-        attack = GetComponentsInChildren<IAttack>();
         health = GetComponentInChildren<IHealth>();
         rigidbody = GetComponent<Rigidbody2D>();
     }
@@ -25,7 +27,6 @@ public class Entity : MonoBehaviour
             direction = SetDirection(pDirection.x, pDirection.y);
         if (CachedLastInput != direction && direction != Vector2.zero) 
             CachedLastInput = SetDirection(direction.x, direction.y);
-        
         movement?.Move(pDirection, pSpeed);
     }
     /// <summary>
@@ -67,6 +68,7 @@ public class Entity : MonoBehaviour
     private Vector2 SetDirection(float pX = 0f, float pY = 0f) {
         return new Vector2(pX, pY);
     }
+    protected void ToggleEntityMovement() => CanMove = !CanMove;
     public void SetDirection(Vector2 pDirection) {
         direction = pDirection;
     }

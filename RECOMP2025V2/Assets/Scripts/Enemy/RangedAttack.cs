@@ -13,14 +13,14 @@ public class RangedAttack : MonoBehaviour, IAttack {
     [SerializeField] private float deltaTime;
     private Vector2 cachedPlayerDirection;
     private float originalTime;
-    public int Damage { get; set; } = 2;
+    public int BulletDamage { get => bulletDamage; set => bulletDamage = value; }
+    public float BulletSpeed { get => bulletSpeed; set => bulletSpeed = value; }
+    public void Attack(int pDamage) {
+    }
     private void Awake() {
         shooter = GetComponent<Entity>();
         player = FindObjectOfType<Player>();
-        
         originalTime = deltaTime;
-    }
-    public void Attack(int pDamage) {
     }
     private void Update() {
         if (!player) return;
@@ -42,16 +42,17 @@ public class RangedAttack : MonoBehaviour, IAttack {
         GameObject newBullet = Instantiate(bulletPrefab, bulletSpawnPosition, Quaternion.identity);
         // Find the bullet of the new instantiated bullet
         Bullet newBulletObj = newBullet.GetComponent<Bullet>();
+        newBulletObj.SetShooter(this);
         // Find IBullet variation from the new instantiated bullet
         IBullet newBulletScript = newBulletObj.GetComponent<IBullet>();
-        GetBulletType(newBulletObj);
+        //GetBulletType(newBulletObj);
         SetBulletValues(newBulletObj, newBulletScript);
     }
 
     private void SetBulletValues(Bullet pBullet, IBullet pScript) { 
         //pBullet.gameObject.AddComponent(selectedBulletType);
         pBullet.SetDirection(cachedPlayerDirection);
-        pBullet.AssignObject(pScript, pBullet);
+        pBullet.AssignObject(pScript);
         pBullet.BulletScript.IsFired = true;
     }
     private void GetBulletType(Bullet pBullet) {
@@ -60,8 +61,8 @@ public class RangedAttack : MonoBehaviour, IAttack {
             case BasicBullet:
                 SetBulletType<BasicBullet>();
                 break;
-            case HomingMovement:
-                SetBulletType<HomingMovement>();
+            case HomingBullet:
+                SetBulletType<HomingBullet>();
                 break;
             default:
                 Debug.Log("What the hell, what the helly?");

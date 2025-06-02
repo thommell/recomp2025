@@ -10,5 +10,4 @@ public class BasicPushback : MonoBehaviour, IKnockable {
         entity.RigidBody.AddForce(pDirection * pForce, forceMode);
         Debug.Log($"{gameObject.name} has been knocked back!");
     }
-
 }

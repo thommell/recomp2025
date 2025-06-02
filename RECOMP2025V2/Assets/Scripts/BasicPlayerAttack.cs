@@ -8,20 +8,19 @@ public class BasicPlayerAttack : MonoBehaviour, IAttack
     private Player player;
     [SerializeField] private Entity entityInRange;
     [SerializeField] private float attackRange;
-    public int Damage { get; set; } = 2;
+    public int BulletDamage { get; set; } = 2;
     private void Awake() {
         player = GetComponent<Player>();
     }
     private void Update() {
         entityInRange = GetEntityFromRayCast();
-        if (entityInRange is null) return;
+        if (!entityInRange) return;
         if (GetAttackKey() && entityInRange) {
-            player.RequestAttack(entityInRange, player, Damage);
-            player.RequestKnockBack(entityInRange.GetComponent<BasicPushback>(), player, player.Direction, 5f);
+            player.RequestAttack(entityInRange, player, BulletDamage);
+            player.RequestKnockBack(entityInRange.GetComponent<BasicPushback>(), player, player.Direction, 2f);
         }
     }
     public void Attack(int pDamage) {
-        Debug.Log("Player Attack");
     }
     private Entity GetEntityFromRayCast() {
         Vector2 rayCastPosition = new Vector2(transform.position.x + 0.7f * player.Direction.x, transform.position.y);

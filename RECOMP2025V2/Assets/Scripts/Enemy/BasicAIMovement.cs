@@ -1,8 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class BasicAIMovement : MonoBehaviour, IMovement {
     [SerializeField] private BaseEnemy enemy;
-    private Player player;
     private float moveSpeed = 1f;
     
     private bool isWaiting;
@@ -13,7 +12,6 @@ public class BasicAIMovement : MonoBehaviour, IMovement {
 
     private void Awake() {
         enemy = GetComponent<BaseEnemy>();
-        player = FindObjectOfType<Player>();
         deltaTime = amountToWait;
     }
     private void FixedUpdate() {
@@ -23,7 +21,7 @@ public class BasicAIMovement : MonoBehaviour, IMovement {
         WalkTowards();
     }
     private void WalkTowards() {
-        Vector2 directionToPlayer = (player.transform.position - transform.position).normalized;
+        Vector2 directionToPlayer = (StaticManager.Instance.Player.transform.position - transform.position).normalized;
         enemy.RequestMovement(this, new Vector2(directionToPlayer.x, 0f),moveSpeed * Time.deltaTime);
     }
     public void Move(Vector3 pDirection, float pSpeed = 1) {

@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BasicPlayerMovement : MonoBehaviour, IMovement, IKnockable
@@ -8,7 +9,6 @@ public class BasicPlayerMovement : MonoBehaviour, IMovement, IKnockable
     [SerializeField] private float jumpForce;
     private Vector2 playerDirection;
     private bool isGrounded;
-    
     [SerializeField] private LayerMask layerMask;
     
     // Properties
@@ -20,7 +20,7 @@ public class BasicPlayerMovement : MonoBehaviour, IMovement, IKnockable
         PlayerMovement(GetDirection());
     }
     private void PlayerMovement(Vector2 pDirection) {
-        if (pDirection == Vector2.zero) return;
+        if (pDirection == Vector2.zero || !player.CanMove) return;
         player.RequestMovement(this, pDirection, speed);
     }
     private void CheckJump()
