@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-
 public class BasicPushback : MonoBehaviour, IKnockable {
     private Entity entity;
     private void Awake() {

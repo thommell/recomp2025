@@ -2,19 +2,13 @@ using UnityEngine;
 
 public class BasicHealth : MonoBehaviour, IHealth
 {
-    // Variables
-    private Entity entity;
     [SerializeField] private int health;
-    
-    // Properties
+    private Entity entity;
     public int Health { get => health; set => health = value; }
-    
-    // Methods
     private void Awake() {
         entity = GetComponent<Entity>();
     }
     public void TakeDamage(Entity pSender, int pDamage) {
-        
         // Cancel damage call if entity doesn't exist
         if (!entity) return;
         Health -= pDamage;

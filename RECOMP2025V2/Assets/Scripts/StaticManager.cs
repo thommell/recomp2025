@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 
 public class StaticManager : MonoBehaviour {
-    // Fields
     private Player player;
-    
-    // Properties 
     public static StaticManager Instance { get; private set; }
-    public Player Player => player;
-    
-    // Methods
+
+    public Player Player {
+        get {
+            if (player == null) {
+                player = FindObjectOfType<Player>();
+            }
+            return player;
+        }
+    }
+
     private void Awake() {
         if (!Instance) {
             Instance = this;

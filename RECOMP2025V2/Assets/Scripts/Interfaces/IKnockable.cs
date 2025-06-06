@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public interface IKnockable {
     /// <summary>
     /// Wrapper method for distinguishing between different <see cref="IKnockable"/> implementations.

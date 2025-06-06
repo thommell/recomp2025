@@ -1,51 +1,21 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-
-public class BasicPlayerMovement : MonoBehaviour, IMovement, IKnockable
+public class BasicPlayerMovement : MonoBehaviour, IMovement
 {
-    private Player player;
     [SerializeField] private float speed;
-    [SerializeField] private float jumpForce;
     private Vector2 playerDirection;
-    private bool isGrounded;
-    [SerializeField] private LayerMask layerMask;
-    
-    // Properties
+    private Player player;
     private void Awake() {
         player = GetComponent<Player>();
     }
     private void FixedUpdate() {
-        CheckJump();
         PlayerMovement(GetDirection());
     }
     private void PlayerMovement(Vector2 pDirection) {
         if (pDirection == Vector2.zero || !player.CanMove) return;
         player.RequestMovement(this, pDirection, speed);
     }
-    private void CheckJump()
-    {
-        CastVerticalRay();
-        
-        if (GetJumpKey && isGrounded) {
-            Jump();
-        }
-    }
     public void Move(Vector3 pDirection, float pSpeed = 1f) {
         player.transform.Translate(pDirection * (pSpeed * Time.deltaTime));
-    }
-    private void Jump() { 
-        player.RequestKnockBack(this, player, Vector3.up, jumpForce);
-    }
-    private void CastVerticalRay()
-    {
-        Vector3 rayCastPosition = player.transform.position;
-        float rayCastLength = 0.7f;
-        RaycastHit2D hit = Physics2D.Raycast(rayCastPosition, Vector3.down * rayCastLength);
-        Debug.DrawRay(rayCastPosition, Vector3.down * rayCastLength, Color.blue);
-        
-        // Check if raycast is hitting the ground layer, if so set isGrounded to true.
-        if (hit.collider.IsTouchingLayers(layerMask)) isGrounded = true;
     }
     private Vector2 GetDirection() {
         Vector2 newDirection = Vector2.zero;
@@ -54,16 +24,5 @@ public class BasicPlayerMovement : MonoBehaviour, IMovement, IKnockable
 
         if (newDirection == Vector2.zero) return Vector2.zero;
         return newDirection.normalized;
-    }
-    private bool GetJumpKey => Input.GetKey(KeyCode.Space);
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        // Set grounded to false when it stops colliding.
-        isGrounded = false;
-    }
-
-    public void KnockBack(Vector2 pDirection, float pForce, ForceMode2D forceMode = ForceMode2D.Impulse) {
-        player.RigidBody.AddForce(pDirection * pForce, forceMode);
     }
 }

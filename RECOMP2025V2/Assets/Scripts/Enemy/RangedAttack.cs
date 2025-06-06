@@ -2,14 +2,11 @@ using System;
 using UnityEngine;
 public class RangedAttack : MonoBehaviour, IAttack {
     [SerializeField] private GameObject bulletPrefab;
-
     [SerializeField] private float bulletSpeed;
     [SerializeField] private int bulletDamage;
-
     private Player player;
     private Entity shooter;
     private int bulletAmount;
-    private Type selectedBulletType;
     [SerializeField] private float deltaTime;
     private Vector2 cachedPlayerDirection;
     private float originalTime;
@@ -47,28 +44,9 @@ public class RangedAttack : MonoBehaviour, IAttack {
         IBullet newBulletScript = newBulletObj.GetComponent<IBullet>();
         SetBulletValues(newBulletObj, newBulletScript);
     }
-
     private void SetBulletValues(Bullet pBullet, IBullet pScript) { 
-        //pBullet.gameObject.AddComponent(selectedBulletType);
         pBullet.SetDirection(cachedPlayerDirection);
         pBullet.AssignObject(pScript);
         pBullet.BulletScript.IsFired = true;
-    }
-    private void GetBulletType(Bullet pBullet) {
-        
-        switch (pBullet.GetComponent<IBullet>()) {
-            case BasicBullet:
-                SetBulletType<BasicBullet>();
-                break;
-            case HomingBullet:
-                SetBulletType<HomingBullet>();
-                break;
-            default:
-                Debug.Log("What the hell, what the helly?");
-                break;
-        }
-    }
-    private void SetBulletType<T>() where T : MonoBehaviour, IBullet {
-        selectedBulletType = typeof(T);
     }
 }

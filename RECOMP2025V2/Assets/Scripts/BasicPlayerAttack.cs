@@ -1,13 +1,9 @@
-﻿using System;
-using System.Net;
-using UnityEngine;
-using UnityEngine.Serialization;
-
+﻿using UnityEngine;
 public class BasicPlayerAttack : MonoBehaviour, IAttack
 {
-    private Player player;
     [SerializeField] private Entity entityInRange;
     [SerializeField] private float attackRange;
+    private Player player;
     public int BulletDamage { get; set; } = 2;
     private void Awake() {
         player = GetComponent<Player>();
@@ -35,6 +31,5 @@ public class BasicPlayerAttack : MonoBehaviour, IAttack
         // Return the Entity if it hits one.
         return hit.collider.GetComponent<Entity>();
     }
-
     private bool GetAttackKey() => Input.GetKeyDown(KeyCode.Tab);
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class HomingBullet : Bullet, IBullet {
-    private float homingStrength = 2.24f;
+    [SerializeField] private float homingStrength = 2.24f;
     public bool IsFired { get; set; }
 
     public void BulletMovement(Bullet pBullet, Vector3 pDirection) {

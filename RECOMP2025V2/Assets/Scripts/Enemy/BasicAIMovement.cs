@@ -1,15 +1,12 @@
 using UnityEngine;
 
 public class BasicAIMovement : MonoBehaviour, IMovement {
-    [SerializeField] private BaseEnemy enemy;
-    private float moveSpeed = 1f;
-    
+    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float amountToWait = 1.5f;
+    private BaseEnemy enemy;
     private bool isWaiting;
-    private float amountToWait = 1.5f;
     private float deltaTime;
-    
     private Vector2 enemyDirection;
-
     private void Awake() {
         enemy = GetComponent<BaseEnemy>();
         deltaTime = amountToWait;

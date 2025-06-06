@@ -1,17 +1,10 @@
-using System;
 using UnityEngine;
-
 public class BounceMovement : MonoBehaviour, IKnockable {
-    // Serialized fields
     [SerializeField] private float deltaTime;
     [SerializeField] private float force;
     [SerializeField] private LayerMask groundLayer;
-    
-    // Normal fields
     private float originalTime;
     private bool isGrounded;
-    
-    // Objects
     private Entity bouncer;
     private BoxCollider2D collider; 
 

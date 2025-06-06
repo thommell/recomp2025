@@ -17,6 +17,11 @@ public class Player : Entity {
         deltaTime -= Time.deltaTime;
         if (deltaTime <= 0) {
             ToggleEntityMovement();
+            deltaTime = originalTime;
         }
+    }
+
+    public void AddPlayerComponent<T>() where T: MonoBehaviour {
+        gameObject.AddComponent<T>();
     }
 }

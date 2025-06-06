@@ -1,16 +1,11 @@
 using UnityEngine;
 public class Entity : MonoBehaviour
 {
-    // Variables
     private IHealth health;
     private bool canMove = true;
     private Rigidbody2D rigidbody;
     private float timeTillMove;
-
     protected Vector2 direction = Vector2.zero;
-    
-    
-    // Properties
     private Vector2 CachedLastInput { get; set; }
     public bool CanMove {get => canMove; private set => canMove = value; }
     public Rigidbody2D RigidBody { get => rigidbody; set => rigidbody = value; }
@@ -54,9 +49,6 @@ public class Entity : MonoBehaviour
     }
     public void RequestAttack(Entity pReceiver, Entity pSender, int pDamage) {
         pReceiver.health?.TakeDamage(pSender, pDamage);
-    }
-    public void RequestHeal(int pHealth) {
-        //health?.TakeDamage(pHealth);
     }
     public void RequestDeath() {
         health?.Die();
