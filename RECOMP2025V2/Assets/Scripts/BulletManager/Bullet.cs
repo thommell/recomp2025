@@ -25,6 +25,7 @@ public class Bullet : Entity {
         Destroy(gameObject);
     }
     private void OnTriggerEnter2D(Collider2D other) {
+        if (other.GetComponent<BaseEnemy>()) return;
         IHealth health = other.GetComponent<IHealth>();
         Entity entity = other.GetComponent<Entity>();
         if (health != null){

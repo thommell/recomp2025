@@ -43,6 +43,7 @@ public class RangedAttack : MonoBehaviour, IAttack {
         // Find IBullet variation from the new instantiated bullet
         IBullet newBulletScript = newBulletObj.GetComponent<IBullet>();
         SetBulletValues(newBulletObj, newBulletScript);
+        shooter.Flipper.CheckEntityNewDirection(cachedPlayerDirection);
     }
     private void SetBulletValues(Bullet pBullet, IBullet pScript) { 
         pBullet.SetDirection(cachedPlayerDirection);

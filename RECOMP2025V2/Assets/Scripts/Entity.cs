@@ -2,18 +2,22 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     private IHealth health;
+    private float timeTillMove;
     private bool canMove = true;
     private Rigidbody2D rigidbody;
-    private float timeTillMove;
+    private SpriteFlipper flipper;
     protected Vector2 direction = Vector2.zero;
     private Vector2 CachedLastInput { get; set; }
     public bool CanMove {get => canMove; private set => canMove = value; }
     public Rigidbody2D RigidBody { get => rigidbody; set => rigidbody = value; }
+    public SpriteFlipper Flipper => flipper;
+
     public Vector2 Direction { get => direction; }
     //Initialize
     public virtual void Awake() {
         health = GetComponentInChildren<IHealth>();
         rigidbody = GetComponent<Rigidbody2D>();
+        flipper = GetComponent<SpriteFlipper>();
     }
     // Request API
     public void RequestMovement(IMovement movement, Vector2 pDirection, float pSpeed = 1f) {
@@ -24,6 +28,7 @@ public class Entity : MonoBehaviour
             direction = SetDirection(pDirection.x, pDirection.y);
         if (CachedLastInput != direction && direction != Vector2.zero) 
             CachedLastInput = SetDirection(direction.x, direction.y);
+        flipper.CheckEntityNewDirection(pDirection);
         movement?.Move(pDirection, pSpeed);
     }
     /// <summary>
@@ -35,9 +40,9 @@ public class Entity : MonoBehaviour
     /// <param name="pForce">The requested force.</param>
     /// <param name="pForceMode2D">The requested ForceMode.</param>
     public void RequestKnockBack(IKnockable pKnockable, Entity pSender, Vector3 pDirection, float pForce, ForceMode2D pForceMode2D = ForceMode2D.Impulse) {
-        // Helps prevent the accumulation of different forces
+        // Prevents the accumulation of different forces
         RigidBody.velocity = Vector2.zero;
-        // Give the enemy knock back
+        // Give the enemy knock-back
         switch (pKnockable) {
             case BasicPushback: 
                 pKnockable.KnockBack(pSender.Direction, pForce, pForceMode2D);
@@ -46,6 +51,7 @@ public class Entity : MonoBehaviour
                 pKnockable.KnockBack(pDirection, pForce, pForceMode2D);
                 break;
         }
+        flipper.CheckEntityNewDirection(pDirection);
     }
     public void RequestAttack(Entity pReceiver, Entity pSender, int pDamage) {
         pReceiver.health?.TakeDamage(pSender, pDamage);
@@ -66,4 +72,5 @@ public class Entity : MonoBehaviour
     public void SetDirection(Vector2 pDirection) {
         direction = pDirection;
     }
+
 }

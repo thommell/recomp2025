@@ -25,7 +25,8 @@ public class BounceMovement : MonoBehaviour, IKnockable {
         deltaTime -= Time.deltaTime;
     }
     private void SendBounce() {
-        bouncer.RequestKnockBack(this, bouncer, GetPlayerPos(), force);  
+        Vector2 playerPos = GetPlayerPos();
+        bouncer.RequestKnockBack(this, bouncer, playerPos, force);  
     }
     public void KnockBack(Vector2 pDirection, float pForce, ForceMode2D forceMode = ForceMode2D.Impulse) {
         // Player position caching

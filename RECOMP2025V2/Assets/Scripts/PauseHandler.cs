@@ -15,8 +15,10 @@ public class PauseHandler : MonoBehaviour {
     private ButtonHandler onPauseButtonPressed;
     private void Start() {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        AssignValues();
     }
     private void AssignValues() {
+        if (onPauseButtonPressed != null) return;
         onPauseButtonPressed += TogglePause;
         onPauseButtonPressed += TogglePauseVisibility;
         onPauseButtonPressed += ToggleTimeScale;

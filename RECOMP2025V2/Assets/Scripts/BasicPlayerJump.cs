@@ -8,7 +8,7 @@ public class BasicPlayerJump : MonoBehaviour, IKnockable {
     private void Start() {
         layerMask = LayerMask.GetMask("Ground");
         if (jumpForce == 0f)
-            jumpForce = 5f;
+            jumpForce = 8f;
     }
     private void FixedUpdate() {
         CheckJump();
