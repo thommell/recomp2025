@@ -6,6 +6,7 @@ public class Entity : MonoBehaviour
     private bool canMove = true;
     private Rigidbody2D rigidbody;
     private SpriteFlipper flipper;
+    private BasicStunner stunner;
     protected Vector2 direction = Vector2.zero;
     private Vector2 CachedLastInput { get; set; }
     public bool CanMove {get => canMove; private set => canMove = value; }
@@ -18,6 +19,7 @@ public class Entity : MonoBehaviour
         health = GetComponentInChildren<IHealth>();
         rigidbody = GetComponent<Rigidbody2D>();
         flipper = GetComponent<SpriteFlipper>();
+        stunner = GetComponent<BasicStunner>();
     }
     // Request API
     public void RequestMovement(IMovement movement, Vector2 pDirection, float pSpeed = 1f) {
@@ -48,6 +50,7 @@ public class Entity : MonoBehaviour
                 pKnockable.KnockBack(pSender.Direction, pForce, pForceMode2D);
                 break;
             default:
+                if (!canMove) return;
                 pKnockable.KnockBack(pDirection, pForce, pForceMode2D);
                 break;
         }
@@ -55,6 +58,8 @@ public class Entity : MonoBehaviour
     }
     public void RequestAttack(Entity pReceiver, Entity pSender, int pDamage) {
         pReceiver.health?.TakeDamage(pSender, pDamage);
+        if (!pReceiver.stunner) return;
+        pReceiver.stunner.Stun();
     }
     public void RequestDeath() {
         health?.Die();
@@ -68,9 +73,9 @@ public class Entity : MonoBehaviour
     private Vector2 SetDirection(float pX = 0f, float pY = 0f) {
         return new Vector2(pX, pY);
     }
+    public void ToggleMovement() => canMove = !canMove;
     protected void ToggleEntityMovement() => CanMove = !CanMove;
     public void SetDirection(Vector2 pDirection) {
         direction = pDirection;
     }
-
 }

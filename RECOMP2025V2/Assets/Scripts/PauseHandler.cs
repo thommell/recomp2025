@@ -39,7 +39,6 @@ public class PauseHandler : MonoBehaviour {
         }
         return null;
     }
-
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         canvas = FindObjectOfType<Canvas>();
         AssignValues();
@@ -60,7 +59,6 @@ public class PauseHandler : MonoBehaviour {
         onPauseButtonPressed?.Invoke();
     }
     private void TogglePause() => isPaused = !isPaused;
-
     private void TogglePauseVisibility() {
         pauseObjects.ForEach(obj => obj.SetActive(isPaused));
         pauseButton.gameObject.SetActive(!isPaused);

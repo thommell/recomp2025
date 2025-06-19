@@ -31,7 +31,7 @@ public class BasicPlayerJump : MonoBehaviour, IKnockable {
         float rayCastLength = 0.7f;
         RaycastHit2D hit = Physics2D.Raycast(rayCastPosition, Vector3.down * rayCastLength);
         Debug.DrawRay(rayCastPosition, Vector3.down * rayCastLength, Color.blue);
-        
+            
         // Check if raycast is hitting the ground layer, if so set isGrounded to true.
         if (hit.collider.IsTouchingLayers(layerMask)) isGrounded = true;
     }

@@ -31,8 +31,8 @@ public class RangedAttack : MonoBehaviour, IAttack {
         deltaTime -= Time.deltaTime;
     }
     private void TargetOnPlayer() => cachedPlayerDirection = (player.transform.position - shooter.transform.position).normalized;
- 
     private void Shoot() {
+        if (!shooter.CanMove) return;
         Debug.Log($"{gameObject.name} has shot a ranged attack!");
         TargetOnPlayer();
         Vector2 bulletSpawnPosition = new Vector2(shooter.transform.position.x + cachedPlayerDirection.x, shooter.transform.position.y + cachedPlayerDirection.y);

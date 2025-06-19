@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class Player : Entity {
     [SerializeField] private float deltaTime;
     private float originalTime;
@@ -20,7 +19,6 @@ public class Player : Entity {
             deltaTime = originalTime;
         }
     }
-
     public void AddPlayerComponent<T>() where T: MonoBehaviour {
         gameObject.AddComponent<T>();
     }
