@@ -57,7 +57,7 @@ public class Entity : MonoBehaviour
         flipper.CheckEntityNewDirection(pDirection);
     }
     public void RequestAttack(Entity pReceiver, Entity pSender, int pDamage) {
-        pReceiver.health?.TakeDamage(pSender, pDamage);
+        pReceiver.health?.TakeDamage(pReceiver, pSender, pDamage);
         if (!pReceiver.stunner) return;
         pReceiver.stunner.Stun();
     }

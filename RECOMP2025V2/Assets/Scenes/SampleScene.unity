@@ -2480,7 +2480,7 @@ Transform:
   m_GameObject: {fileID: 1767303379}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.31, y: -0.56, z: 0}
+  m_LocalPosition: {x: -4.001, y: -0.257, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2597,6 +2597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88cfa802ab3cf0b4d854cfb271131822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeTillNextWave: 1
   enemyPrefabs:
   - {fileID: 7820936864271218200, guid: 867e25982dcf71d4c8723dca1362f305, type: 3}
   - {fileID: 3478260181297604889, guid: 072afefce74dcac46909b39115d93d37, type: 3}
@@ -2604,6 +2605,7 @@ MonoBehaviour:
   - {fileID: 722417385688624023, guid: b44ea383d50f75e42b3b9986ab24bd8c, type: 3}
   - {fileID: 2341543904946294258, guid: 89d591e0233f2694d8ec9922bc5aa033, type: 3}
   - {fileID: 6476140668319587899, guid: 425e3a952ad69aa45ad83b95ab08f67e, type: 3}
+  activeEnemies: []
 --- !u!4 &2115824877
 Transform:
   m_ObjectHideFlags: 0

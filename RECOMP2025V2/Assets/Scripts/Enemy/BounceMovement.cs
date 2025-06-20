@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
 public class BounceMovement : MonoBehaviour, IKnockable {
     [SerializeField] private float deltaTime;
     [SerializeField] private float force;
@@ -34,7 +36,8 @@ public class BounceMovement : MonoBehaviour, IKnockable {
     }
     private Vector2 GetPlayerPos() => (StaticManager.Instance.Player.transform.position - bouncer.transform.position).normalized;
     private void OnCollisionExit2D(Collision2D other) {
-        if (other.gameObject.GetComponent<BoxCollider2D>().IsTouchingLayers()) {
+        if (other.gameObject.GetComponent<Player>()) return;
+        if (other.gameObject.GetComponent<TilemapCollider2D>().IsTouchingLayers()) {
             Debug.Log($"{gameObject.name} has bounced!");
             isGrounded = false;
         }

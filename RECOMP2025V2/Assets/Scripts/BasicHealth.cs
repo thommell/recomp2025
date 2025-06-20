@@ -8,7 +8,7 @@ public class BasicHealth : MonoBehaviour, IHealth
     private void Awake() {
         entity = GetComponent<Entity>();
     }
-    public void TakeDamage(Entity pSender, int pDamage) {
+    public void TakeDamage(Entity pReceiver, Entity pSender, int pDamage) {
         // Cancel damage call if entity doesn't exist
         if (!entity) return;
         Health -= pDamage;
@@ -17,6 +17,7 @@ public class BasicHealth : MonoBehaviour, IHealth
         // Check if Entity has zero or under zero health.
         if (Health <= 0) {
             entity.RequestDeath();
+            WaveManager.Instance.CheckEnemyCount();
         }
     }
     public void Heal(int pHeal) {
