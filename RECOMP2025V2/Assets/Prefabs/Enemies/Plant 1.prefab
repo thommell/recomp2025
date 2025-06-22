@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7453670884393255914}
   - component: {fileID: 2892255441132607969}
   - component: {fileID: 1830305786949778559}
+  - component: {fileID: -6136289522055100983}
   m_Layer: 0
   m_Name: Plant 1
   m_TagString: Player
@@ -157,6 +158,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 0}
+  prefabSource: {fileID: 0}
+  ID: 0
 --- !u!114 &3602967386309385097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +232,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6267858227459146246, guid: 9dc7be3c5317dac459c4fba732d86c94, type: 3}
   bulletSpeed: 2
   bulletDamage: 1
-  deltaTime: 1
+  deltaTime: 2.87
 --- !u!114 &1830305786949778559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,3 +246,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stunAmount: 1.7
+--- !u!114 &-6136289522055100983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722417385688624023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 580c5f586c3947378d9750d7ade2c95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

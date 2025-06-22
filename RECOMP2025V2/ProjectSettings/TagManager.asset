@@ -6,6 +6,7 @@ TagManager:
   tags:
   - resume
   - pauser
+  - WaveCounter
   layers:
   - Default
   - TransparentFX

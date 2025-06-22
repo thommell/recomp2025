@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BasicStunner : MonoBehaviour, IStunner {
     [SerializeField] private float stunAmount;
@@ -11,22 +12,41 @@ public class BasicStunner : MonoBehaviour, IStunner {
         DeltaTime = stunAmount;
     }
     public void Stun() {
+        if (IsStunned) return;
+        if (GetStun()) {
+            ApplyStun();
+        }
+    }
+    private void ApplyStun() {
         IsStunned = true;
+        entity.ToggleMovement();
+        ChangeStunColour();
+    }
+    public void DeStun() {
+        IsStunned = false;
+        entity.ToggleMovement();
+        ChangeStunColour();
     }
     private void Update() {
         if (IsStunned) {
-            if (entity.CanMove)   
-                entity.ToggleMovement();
             Timer();
         }
     }
     private void Timer() {
         DeltaTime -= Time.deltaTime;
-        Debug.Log($"Stun duration: {DeltaTime}");
         if (DeltaTime <= 0) {
             IsStunned = false;
             DeltaTime = stunAmount;
-            entity.ToggleMovement();
+            DeStun();
         }
+    }
+    private void ChangeStunColour() => entity.SpriteRenderer.color = IsStunned ? Color.gray : Color.white;
+    private bool GetStun() {
+        int computerRoll = Random.Range(0, 6);
+        int stunRoll = Random.Range(0, 6);
+        if (computerRoll == stunRoll) {
+            return true;
+        }
+        return false;
     }
 }
