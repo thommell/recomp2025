@@ -7,12 +7,15 @@ public class Entity : MonoBehaviour
     private Rigidbody2D rigidbody;
     private SpriteFlipper flipper;
     private BasicStunner stunner;
+    private BasicInvulnerable invulnerable;
+    private SpriteRenderer spriteRenderer;
     protected Vector2 direction = Vector2.zero;
     private Vector2 CachedLastInput { get; set; }
     public bool CanMove {get => canMove; private set => canMove = value; }
     public Rigidbody2D RigidBody { get => rigidbody; set => rigidbody = value; }
+    public SpriteRenderer SpriteRenderer { get => spriteRenderer; private set => spriteRenderer = value; }
     public SpriteFlipper Flipper => flipper;
-
+    public BasicInvulnerable Invulnerable => invulnerable;
     public Vector2 Direction { get => direction; }
     //Initialize
     public virtual void Awake() {
@@ -20,6 +23,8 @@ public class Entity : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         flipper = GetComponent<SpriteFlipper>();
         stunner = GetComponent<BasicStunner>();
+        invulnerable = GetComponent<BasicInvulnerable>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     // Request API
     public void RequestMovement(IMovement movement, Vector2 pDirection, float pSpeed = 1f) {

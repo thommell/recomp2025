@@ -157,6 +157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 0}
+  prefabSource: {fileID: 0}
+  ID: 0
 --- !u!114 &8082503284330613948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +231,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6267858227459146246, guid: 50dc7e3217892894b9b8cfb5f24676b9, type: 3}
   bulletSpeed: 2
   bulletDamage: 1
-  deltaTime: 1.8
+  deltaTime: 3
 --- !u!114 &7773482277225239374
 MonoBehaviour:
   m_ObjectHideFlags: 0

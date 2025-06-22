@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-public class BasicPlayerAttack : MonoBehaviour, IAttack
-{
+public class BasicPlayerAttack : MonoBehaviour, IAttack {
+    [SerializeField] private KeyCode key;
     [SerializeField] private Entity entityInRange;
     [SerializeField] private float attackRange;
     private Player player;
@@ -31,5 +31,5 @@ public class BasicPlayerAttack : MonoBehaviour, IAttack
         // Return the Entity if it hits one.
         return hit.collider.GetComponent<Entity>();
     }
-    private bool GetAttackKey() => Input.GetKeyDown(KeyCode.Tab);
+    private bool GetAttackKey() => Input.GetKeyDown(key);
 }

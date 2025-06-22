@@ -2,15 +2,16 @@
 public class Player : Entity {
     [SerializeField] private float deltaTime;
     private float originalTime;
+    
+    // Properties
     public override void Awake() {
         base.Awake();
         originalTime = deltaTime;
     }
     private void Update() {
-        if (CanMove) {
-            return;
+        if (!CanMove) {
+            Timer();
         }
-        Timer();
     }
     private void Timer() {
         deltaTime -= Time.deltaTime;

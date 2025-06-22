@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7955943019887911682}
   - component: {fileID: 1970441237304308918}
   - component: {fileID: 3964029385632598184}
+  - component: {fileID: -2153297701289395205}
   m_Layer: 0
   m_Name: Bunny
   m_TagString: Player
@@ -157,6 +158,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 0}
+  prefabSource: {fileID: 0}
+  ID: 0
 --- !u!114 &7167800134327734416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deltaTime: 2.5
-  force: 2
+  force: 3
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -244,3 +247,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stunAmount: 1.7
+--- !u!114 &-2153297701289395205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7820936864271218200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 754f1b4171204f8388cd13e2ce75b073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.125
+  amountToWait: 1.5

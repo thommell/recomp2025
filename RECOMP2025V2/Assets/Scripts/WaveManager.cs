@@ -2,26 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour {
-    /* TODO:
-     * random spawn locations
-     * added health per wave
-     */
+    
     // Variables
     public static WaveManager Instance { get; private set; }
     private int waveAmount = 1;
+    private int currentWave;
+    private int enemiesAlive;
     private bool isWaveCompleted = true;
-    [SerializeField] private float timeTillNextWave;
-    private float deltaTime;
-    [SerializeField] private List<GameObject> enemyPrefabs = new();
-    [SerializeField] private List<GameObject> activeEnemies = new();
+    private bool isAllowedToStart;
     
-    // Properties
+    public bool HasStarted => isWaveCompleted;
+    [SerializeField] private TextMeshProUGUI waveText;
+    [SerializeField] private float timeTillNextWave;
+    [SerializeField] private float deltaTime;
+    [SerializeField] private List<GameObject> enemyPrefabs = new();
     
     // Methods
     private void Awake() {
@@ -29,14 +30,16 @@ public class WaveManager : MonoBehaviour {
             Debug.LogError("What the helly?");
         }
         Instance = this;
+        SetupWaveText();
+        UpdateWaveUI();
+        deltaTime = timeTillNextWave;
     }
-
     private void Update() {
+        if (!isAllowedToStart || !isWaveCompleted) return;
         Timer();
     }
 
     private void Timer() {
-        if (!isWaveCompleted) return;
         deltaTime -= Time.deltaTime;
         if (deltaTime <= 0f) {
             isWaveCompleted = false;
@@ -46,16 +49,20 @@ public class WaveManager : MonoBehaviour {
     }
 
     public void CheckEnemyCount() {
-        if (!FindObjectOfType<BaseEnemy>()) 
+        enemiesAlive--;
+        if (enemiesAlive <= 0) {
             isWaveCompleted = true;
+        }
     } 
     private void SpawnWave() {
         var enemies = GetEnemies(waveAmount);
         foreach (var e in enemies) {
-            GameObject t = Instantiate(e.gameObject, GetRandomSpawnPosition(), Quaternion.identity);
-            activeEnemies.Add(t);
+            Instantiate(e.gameObject, GetRandomSpawnPosition(), Quaternion.identity);
         }
+        enemiesAlive = enemies.Count;
         waveAmount++;
+        currentWave++;
+        UpdateWaveUI();
     }
     private List<GameObject> GetEnemies(int pEnemyAmount) {
         List<GameObject> enemiesToSpawn = new();
@@ -73,6 +80,24 @@ public class WaveManager : MonoBehaviour {
         return null;
     }
     private Vector2 GetRandomSpawnPosition() {
-        return new Vector2(Random.Range(-10f, 10f), 0f);
+        return new Vector2(Random.Range(-10f, 10f), Random.Range(0, 5f));
+    }
+    public void StartGame() {
+        waveText.gameObject.SetActive(true);
+        isAllowedToStart = true;
+    }
+
+    private void UpdateWaveUI() {
+        waveText.text = $"Wave {currentWave}";
+    }
+
+    private void SetupWaveText() {
+        List<TextMeshProUGUI> texts = new();
+        texts = Resources.FindObjectsOfTypeAll<TextMeshProUGUI>().ToList();
+        foreach (TextMeshProUGUI t in texts) {
+            if (t.CompareTag($"WaveCounter")) {
+                waveText = t;
+            }
+        }
     }
 }

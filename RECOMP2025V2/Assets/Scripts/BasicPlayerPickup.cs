@@ -6,5 +6,6 @@ public class BasicPlayerPickup : MonoBehaviour {
         // Handle pickup
         pickup.PickupHandler();
         StaticManager.Instance.Player.AddPlayerComponent<BasicPlayerJump>();
+        WaveManager.Instance.StartGame();
     }
 }

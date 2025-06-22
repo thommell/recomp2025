@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8254593287669306791}
   - component: {fileID: 6394116698027259146}
   - component: {fileID: 7306252344000517037}
+  - component: {fileID: -7274144737956126889}
   m_Layer: 0
   m_Name: Pig
   m_TagString: Player
@@ -171,6 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collider: {fileID: 0}
+  prefabSource: {fileID: 0}
+  ID: 0
 --- !u!114 &8254593287669306791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,3 +244,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stunAmount: 1.3
+--- !u!114 &-7274144737956126889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478260181297604889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 580c5f586c3947378d9750d7ade2c95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
