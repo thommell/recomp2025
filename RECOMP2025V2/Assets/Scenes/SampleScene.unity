@@ -304,7 +304,12 @@ MonoBehaviour:
   timeTillNextWave: 1.86
   deltaTime: 0
   enemyPrefabs:
+  - {fileID: 7820936864271218200, guid: 867e25982dcf71d4c8723dca1362f305, type: 3}
   - {fileID: 3478260181297604889, guid: 072afefce74dcac46909b39115d93d37, type: 3}
+  - {fileID: 5287656608324626775, guid: fdbc5b6c9af4aae4d80f0eae1ef6b0b9, type: 3}
+  - {fileID: 722417385688624023, guid: b44ea383d50f75e42b3b9986ab24bd8c, type: 3}
+  - {fileID: 2341543904946294258, guid: 89d591e0233f2694d8ec9922bc5aa033, type: 3}
+  - {fileID: 6476140668319587899, guid: 425e3a952ad69aa45ad83b95ab08f67e, type: 3}
 --- !u!114 &146975455
 MonoBehaviour:
   m_ObjectHideFlags: 0

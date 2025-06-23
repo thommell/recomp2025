@@ -64,6 +64,8 @@ public class Entity : MonoBehaviour
     public void RequestAttack(Entity pReceiver, Entity pSender, int pDamage) {
         pReceiver.health?.TakeDamage(pReceiver, pSender, pDamage);
         if (!pReceiver.stunner) return;
+        // dont stun receiver if an enemy is attacking it (only if player does)
+        if (pSender.GetComponent<BaseEnemy>()) return;
         pReceiver.stunner.Stun();
     }
     public void RequestDeath() {
