@@ -2,6 +2,8 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class BasicPlayerHealth : MonoBehaviour, IHealth {
     [SerializeField] private int health;
     private Entity entity;
@@ -26,7 +28,7 @@ public class BasicPlayerHealth : MonoBehaviour, IHealth {
         }
     }
     public void Die() {
-        gameObject.SetActive(false);
+        SceneManager.LoadScene("GameOver");
     }
 
     private void UpdatePlayerUI() {

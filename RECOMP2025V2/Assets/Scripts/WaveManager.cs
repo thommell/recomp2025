@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour {
@@ -52,6 +53,8 @@ public class WaveManager : MonoBehaviour {
     public void CheckEnemyCount() {
         enemiesAlive--;
         if (enemiesAlive <= 0) {
+            if (currentWave >= 40f)
+                WinGame();
             isWaveCompleted = true;
         }
     } 
@@ -81,7 +84,7 @@ public class WaveManager : MonoBehaviour {
         return null;
     }
     private Vector2 GetRandomSpawnPosition() {
-        return new Vector2(Random.Range(-10f, 10f), Random.Range(0, 5f));
+        return new Vector2(Random.Range(-8f, 8f), Random.Range(0, 5f));
     }
     public void StartGame() {
         waveText.gameObject.SetActive(true);
@@ -99,6 +102,10 @@ public class WaveManager : MonoBehaviour {
                 waveText = t;
             }
         }
+    }
+
+    private void WinGame() {
+        SceneManager.LoadScene("WinGame");
     }
     public void ToggleWaveStarter() => isAllowedToStart = !HasStarted;
 }

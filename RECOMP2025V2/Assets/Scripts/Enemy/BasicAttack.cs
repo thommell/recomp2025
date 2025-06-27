@@ -15,6 +15,7 @@ public class BasicAttack : MonoBehaviour, IAttack, IKnockable {
     private void OnCollisionEnter2D(Collision2D other) {
         collidedEntity = other.gameObject.GetComponent<Entity>();
         // Return if collided object IS NOT an entity
+        
         if (!collidedEntity) return;
         Debug.Log($"Entity collision: {collidedEntity}!");
         entity.RequestAttack(collidedEntity, entity, BulletDamage);

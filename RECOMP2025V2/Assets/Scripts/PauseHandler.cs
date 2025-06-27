@@ -14,6 +14,9 @@ public class PauseHandler : MonoBehaviour {
     private ButtonHandler onPauseButtonPressed;
     private void Start() {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        if (Time.timeScale <= 1f) {
+            Time.timeScale = 1f;
+        }
         AssignValues();
     }
     private void AssignValues() {
@@ -25,6 +28,7 @@ public class PauseHandler : MonoBehaviour {
         onPauseButtonPressed += TogglePause;
         onPauseButtonPressed += ToggleTimeScale;
         onPauseButtonPressed += ToggleMenuButton;
+        menuButton.onClick.AddListener(ToggleTimeScale);
         menuButton.onClick.AddListener(GoToMainMenu);
     }
     private Button GetButtonByTag(string pTag, bool pActive = false) {
