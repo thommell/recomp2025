@@ -9,7 +9,6 @@ public class BounceMovement : MonoBehaviour, IKnockable {
     private bool isGrounded;
     private Entity bouncer;
     private BoxCollider2D collider; 
-
     private void Awake() {
         bouncer = GetComponent<Entity>();
         collider = GetComponent<BoxCollider2D>();

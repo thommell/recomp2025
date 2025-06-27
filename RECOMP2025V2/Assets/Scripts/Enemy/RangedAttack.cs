@@ -1,13 +1,12 @@
-using System;
 using UnityEngine;
 public class RangedAttack : MonoBehaviour, IAttack {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private int bulletDamage;
+    [SerializeField] private float deltaTime;
     private Player player;
     private Entity shooter;
     private int bulletAmount;
-    [SerializeField] private float deltaTime;
     private Vector2 cachedPlayerDirection;
     private float originalTime;
     public int BulletDamage { get => bulletDamage; set => bulletDamage = value; }

@@ -3,7 +3,6 @@
 public class HomingBullet : Bullet, IBullet {
     [SerializeField] private float homingStrength = 2.24f;
     public bool IsFired { get; set; }
-
     public void BulletMovement(Bullet pBullet, Vector3 pDirection) {
         Vector2 toPlayer = StaticManager.Instance.Player.transform.position - transform.position;
         Vector2 desiredDirection = toPlayer.normalized;

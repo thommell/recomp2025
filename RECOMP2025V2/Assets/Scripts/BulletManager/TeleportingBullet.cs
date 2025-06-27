@@ -1,15 +1,14 @@
 using UnityEngine;
 
 public class TeleportingBullet : Bullet, IBullet {
-    private float deltaTime;
     [SerializeField] private float waitTime;
     [SerializeField] private float teleportDistance = 1.5f;
+    private float deltaTime;
     private Vector2 originalPlayerDir = Vector2.zero;
     public bool IsFired { get; set; }
     public void BulletMovement(Bullet pBullet, Vector3 pDirection) {
         transform.position += pDirection * teleportDistance;
     }
-
     public override void Start() {
         base.Start();
         deltaTime = waitTime;
@@ -17,7 +16,6 @@ public class TeleportingBullet : Bullet, IBullet {
     public override void Update() {
         Timer();
     }
-
     private void Timer() {
         if (deltaTime <= 0) {
             deltaTime = waitTime;

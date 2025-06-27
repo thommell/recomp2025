@@ -18,7 +18,6 @@ public class DashingMovement : MonoBehaviour, IKnockable {
             deltaTime = originalTime;
         }
     }
-
     private void Dash() {
         Vector2 playerDirection = StaticManager.Instance.Player.transform.position - transform.position;
         enemy.SetDirection(playerDirection.normalized);

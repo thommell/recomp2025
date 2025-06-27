@@ -4,7 +4,6 @@ public class BasicPlayerJump : MonoBehaviour, IKnockable {
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float jumpForce;
     private bool isGrounded;
-
     private void Start() {
         layerMask = LayerMask.GetMask("Ground");
         if (jumpForce == 0f)
@@ -16,7 +15,6 @@ public class BasicPlayerJump : MonoBehaviour, IKnockable {
     private void CheckJump()
     {
         CastVerticalRay();
-        
         if (GetJumpKey && isGrounded) {
             Jump();
         }

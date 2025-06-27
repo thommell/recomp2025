@@ -8,7 +8,6 @@ public class BasicAttack : MonoBehaviour, IAttack, IKnockable {
     public void Attack(int pDamage) {
         throw new NotImplementedException();
     }
-
     private void Awake() {
         entity = GetComponent<Entity>();
     }

@@ -3,15 +3,12 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Bullet : Entity {
-    // Objects
     protected RangedAttack shooter;
     private IBullet bulletScript;
-    
     public IBullet BulletScript => bulletScript;
     public virtual void Start() {
         StartCoroutine(BulletLifeTime());
     }
-
     public virtual void Update() {
         // Cancel movement call if there's no bullet script or if the bullet hasn't been fired.
         if (bulletScript == null || !bulletScript.IsFired) return;

@@ -7,7 +7,6 @@ public class BasicInvulnerable : MonoBehaviour {
     private Entity entity;
     private float originalInvulnerableTime;
     public bool IsInvulnerable => isInvulnerable;
-
     private void Awake() {
         originalInvulnerableTime = invulnerableTime;
         entity = GetComponent<Entity>();
