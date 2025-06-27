@@ -7,10 +7,9 @@ public class PauseHandler : MonoBehaviour {
     [SerializeField] private bool isPaused; 
     [SerializeField] private Canvas canvas;
     [SerializeField] private Button pauseButton;
-    [SerializeField] private Button resumeButton;
+    [SerializeField] private Button menuButton;
     [SerializeField] private GameObject pauseMenu;
     List<GameObject> pauseObjects = new();
-    
     private delegate void ButtonHandler();
     private ButtonHandler onPauseButtonPressed;
     private void Start() {
@@ -19,15 +18,14 @@ public class PauseHandler : MonoBehaviour {
     }
     private void AssignValues() {
         if (onPauseButtonPressed != null) return;
-        onPauseButtonPressed += TogglePause;
-        onPauseButtonPressed += TogglePauseVisibility;
-        onPauseButtonPressed += ToggleTimeScale;
-        resumeButton = GetButtonByTag("resume");
+        menuButton = GetButtonByTag("Menu");
         pauseButton = GetButtonByTag("pauser");
-        pauseMenu = resumeButton.transform.parent.gameObject;
         pauseButton.onClick.AddListener(CheckPaused);
-        resumeButton.onClick.AddListener(CheckPaused);
         pauseObjects = GetChildrenOfPauseMenu();
+        onPauseButtonPressed += TogglePause;
+        onPauseButtonPressed += ToggleTimeScale;
+        onPauseButtonPressed += ToggleMenuButton;
+        menuButton.onClick.AddListener(GoToMainMenu);
     }
     private Button GetButtonByTag(string pTag, bool pActive = false) {
         foreach (Button obj in Resources.FindObjectsOfTypeAll<Button>())
@@ -48,6 +46,7 @@ public class PauseHandler : MonoBehaviour {
             onPauseButtonPressed?.Invoke();
         }
     }
+    private void GoToMainMenu() => SceneManager.LoadScene($"Menu");
     private List<GameObject> GetChildrenOfPauseMenu() {
         var children = new List<GameObject>();
         foreach (Transform child in pauseMenu.transform) {
@@ -59,9 +58,6 @@ public class PauseHandler : MonoBehaviour {
         onPauseButtonPressed?.Invoke();
     }
     private void TogglePause() => isPaused = !isPaused;
-    private void TogglePauseVisibility() {
-        pauseObjects.ForEach(obj => obj.SetActive(isPaused));
-        pauseButton.gameObject.SetActive(!isPaused);
-    }
     private void ToggleTimeScale() => Time.timeScale = isPaused ? 0f : 1f;
+    private void ToggleMenuButton() => menuButton.gameObject.SetActive(isPaused);
 }

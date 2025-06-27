@@ -30,6 +30,7 @@ public class Bullet : Entity {
         Entity entity = other.GetComponent<Entity>();
         if (health != null){
             bulletScript.BulletHit(this);
+            RequestAttack(entity, this, shooter.BulletDamage);
             return;
         }
         

@@ -5,11 +5,7 @@ public class TimeManager : MonoBehaviour {
     // Variables
     [SerializeField] private float timeLeft;
     // Properties
-    public static TimeManager Instance { get; private set; }
     private void Awake() {
-        if (!Instance) {
-            Instance = this;
-        }
         if (timeLeft <= 0) {
             timeLeft = 120f;
         }

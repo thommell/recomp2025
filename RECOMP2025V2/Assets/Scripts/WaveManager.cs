@@ -28,6 +28,7 @@ public class WaveManager : MonoBehaviour {
     private void Awake() {
         if (Instance != null) {
             Debug.LogError("What the helly?");
+            return;
         }
         Instance = this;
         SetupWaveText();
@@ -90,7 +91,6 @@ public class WaveManager : MonoBehaviour {
     private void UpdateWaveUI() {
         waveText.text = $"Wave {currentWave}";
     }
-
     private void SetupWaveText() {
         List<TextMeshProUGUI> texts = new();
         texts = Resources.FindObjectsOfTypeAll<TextMeshProUGUI>().ToList();
@@ -100,4 +100,5 @@ public class WaveManager : MonoBehaviour {
             }
         }
     }
+    public void ToggleWaveStarter() => isAllowedToStart = !HasStarted;
 }
